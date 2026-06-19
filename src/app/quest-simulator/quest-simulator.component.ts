@@ -115,6 +115,14 @@ export class QuestSimulatorComponent implements OnInit {
     this.selectedQuest = null;
   }
 
+  getMiniQuestCount(): number {
+    return this.allQuests.filter((quest) => this.isMiniQuest(quest)).length;
+  }
+
+  trackByQuestName(_index: number, quest: Quest): string {
+    return quest.name;
+  }
+
   getRequirementLabel(req: RequirementData): string {
     const skill = req.skillName ?? req.skill;
     const level = req.level ?? req.requiredLevel ?? req.skillLevel;

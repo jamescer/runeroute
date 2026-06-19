@@ -1,0 +1,172 @@
+<div class="pact-editor">
+  <header class="tree-meta">
+    <input
+      [ngModel]="treeName()"
+      (ngModelChange)="treeName.set($event)"
+      placeholder="Pact tree name"
+    />
+    <label>
+      Max points
+      <input
+        type="number"
+        min="1"
+        [ngModel]="maxPoints()"
+        (ngModelChange)="maxPoints.set($event)"
+      />
+    </label>
+    <label>
+      Max resets
+      <input
+        type="number"
+        min="0"
+        [ngModel]="maxResets()"
+        (ngModelChange)="maxResets.set($event)"
+      />
+    </label>
+    <button type="button" (click)="addPact()">+ Add pact</button>
+  </header>
+
+  <div class="editor-body">
+    <!-- Canvas: ngx-vflow renders nodes/edges, handles pan/zoom/drag/connect for us -->
+    <div class="canvas">
+      <vflow
+        [nodes]="nodes()"
+        [edges]="edges()"
+        [background]="{ type: 'dots' }"
+        [alignmentHelper]="true"
+        (connect)="onConnect($event)"
+      >
+        <ng-template let-ctx node="component">
+          <div
+            (click)="selectPact(ctx.node.id)"
+            (dblclick)="toggleAllocated(ctx.node.id)"
+          >
+            <app-pact-node
+              [pact]="ctx.node.data.pact"
+              [isSelected]="ctx.node.data.isSelected"
+            />
+          </div>
+        </ng-template>
+      </vflow>
+
+      <p class="canvas-hint">
+        Click a pact to edit it · double-click to allocate/deallocate · drag
+        from one pact to another to connect them
+      </p>
+    </div>
+
+    <!-- Side panel: edits whatever pact is currently selected -->
+    <aside class="inspector" *ngIf="selectedPact() as pact; else noSelection">
+      <h3>Edit pact</h3>
+
+      <label class="field">
+        <span>Name</span>
+        <input
+          [ngModel]="pact.name"
+          (ngModelChange)="updateSelectedPact({ name: $event })"
+        />
+      </label>
+
+      <label class="field">
+        <span>Description</span>
+        <textarea
+          rows="2"
+          [ngModel]="pact.description"
+          (ngModelChange)="updateSelectedPact({ description: $event })"
+        ></textarea>
+      </label>
+
+      <div class="field-row">
+        <label class="field">
+          <span>Cost (points)</span>
+          <input
+            type="number"
+            min="1"
+            [ngModel]="pact.cost"
+            (ngModelChange)="updateSelectedPact({ cost: $event })"
+          />
+        </label>
+        <label class="field">
+          <span>Type</span>
+          <select
+            [ngModel]="pact.type"
+            (ngModelChange)="updateSelectedPact({ type: $event })"
+          >
+            <option value="node">Node</option>
+            <option value="keystone">Keystone</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Path</span>
+        <select
+          [ngModel]="pact.path"
+          (ngModelChange)="updateSelectedPact({ path: $event })"
+        >
+          <option [ngValue]="undefined">— none —</option>
+          <option value="fury">Fury</option>
+          <option value="precision">Precision</option>
+          <option value="shadows">Shadows</option>
+        </select>
+      </label>
+
+      <label class="checkbox-field">
+        <input
+          type="checkbox"
+          [ngModel]="pact.isRoot"
+          (ngModelChange)="updateSelectedPact({ isRoot: $event })"
+        />
+        <span>Root pact (allocatable with no prerequisite)</span>
+      </label>
+
+      <label class="checkbox-field">
+        <input
+          type="checkbox"
+          [ngModel]="pact.pvpLimited"
+          (ngModelChange)="updateSelectedPact({ pvpLimited: $event })"
+        />
+        <span>Limited in PvP</span>
+      </label>
+
+      <div class="subsection">
+        <h4>Effects</h4>
+        @for (effect of pact.effects; track $index) {
+          <div class="row">
+            <input
+              [ngModel]="effect"
+              (ngModelChange)="updateEffect($index, $event)"
+              placeholder="Effect"
+            />
+            <button type="button" (click)="removeEffect($index)">✕</button>
+          </div>
+        }
+        <button
+          type="button"
+          class="ghost-btn small"
+          (click)="addEffectToSelected()"
+        >
+          + Add effect
+        </button>
+      </div>
+
+      <div class="subsection">
+        <h4>Connections</h4>
+        <p class="hint">
+          {{ pact.connections.length }} connection(s) — drag between nodes on
+          the canvas to add more.
+        </p>
+      </div>
+
+      <button type="button" class="danger-btn" (click)="removeSelectedPact()">
+        Delete this pact
+      </button>
+    </aside>
+
+    <ng-template #noSelection>
+      <aside class="inspector empty">
+        <p>Select a pact on the canvas to edit it.</p>
+      </aside>
+    </ng-template>
+  </div>
+</div>

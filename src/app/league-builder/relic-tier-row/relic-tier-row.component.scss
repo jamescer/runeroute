@@ -1,0 +1,250 @@
+.tier-row {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #3a3530;
+  border-radius: 8px;
+  background: #1c1a17;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.tier-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  background: linear-gradient(90deg, #2c2418, #1c1a17 70%);
+  border-bottom: 1px solid #3a3530;
+
+  .tier-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    background: #6b5d3f;
+    color: #fdf8ee;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .tier-name {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ece6da;
+    font-size: 1rem;
+    font-weight: 600;
+
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid #6b5d3f;
+    }
+  }
+
+  .tier-threshold {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: #b8ad99;
+
+    input {
+      width: 4.5rem;
+      background: #131210;
+      border: 1px solid #44403a;
+      border-radius: 4px;
+      color: #ece6da;
+      padding: 0.2rem 0.4rem;
+    }
+  }
+
+  .remove-tier {
+    background: transparent;
+    border: none;
+    color: #b06a5a;
+    font-size: 0.85rem;
+  }
+}
+
+.passives-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid #2a2722;
+}
+
+.passive-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #2a2520;
+  border: 1px solid #463d2d;
+  border-radius: 999px;
+  padding: 0.2rem 0.3rem 0.2rem 0.7rem;
+
+  input {
+    background: transparent;
+    border: none;
+    color: #d8c89a;
+    font-size: 0.8rem;
+    width: 14rem;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    color: #8a8071;
+    font-size: 0.7rem;
+  }
+}
+
+.add-chip {
+  background: transparent;
+  border: 1px dashed #6b5d3f;
+  border-radius: 999px;
+  color: #d8c89a;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.78rem;
+
+  &.small {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.6rem;
+  }
+}
+
+/* The horizontal relic row — this is the in-game-style part */
+.relics-track {
+  display: flex;
+  gap: 0.9rem;
+  padding: 0.9rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+}
+
+.relic-card {
+  scroll-snap-align: start;
+  flex: 0 0 13rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  background: #211e1a;
+  border: 1px solid #423b30;
+  border-radius: 8px;
+  padding: 0.75rem;
+  position: relative;
+
+  &:hover {
+    border-color: #6b5d3f;
+  }
+}
+
+.remove-relic {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  background: transparent;
+  border: none;
+  color: #b06a5a;
+  font-size: 0.7rem;
+}
+
+.relic-icon {
+  align-self: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 6px;
+  background: #131210;
+  border: 1px solid #44403a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .icon-placeholder {
+    color: #5a5347;
+    font-size: 1.2rem;
+  }
+}
+
+.relic-name,
+.relic-image {
+  background: #131210;
+  border: 1px solid #44403a;
+  border-radius: 4px;
+  color: #ece6da;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.relic-name {
+  font-weight: 600;
+  text-align: left;
+}
+
+.relic-description {
+  background: #131210;
+  border: 1px solid #44403a;
+  border-radius: 4px;
+  color: #b8ad99;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.75rem;
+  resize: vertical;
+}
+
+.relic-effects {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.effect-line {
+  display: flex;
+  gap: 0.3rem;
+
+  input {
+    flex: 1;
+    background: #131210;
+    border: 1px solid #44403a;
+    border-radius: 4px;
+    color: #ece6da;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.4rem;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    color: #8a8071;
+    font-size: 0.7rem;
+  }
+}
+
+.add-relic-card {
+  flex: 0 0 7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  background: transparent;
+  border: 1px dashed #6b5d3f;
+  border-radius: 8px;
+  color: #d8c89a;
+  font-size: 0.78rem;
+
+  .plus {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+}

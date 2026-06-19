@@ -1,0 +1,170 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="league-builder">
+  <section class="card">
+    <h2>League details</h2>
+
+    <label class="field">
+      <span>Name</span>
+      <input
+        formControlName="name"
+        type="text"
+        placeholder="e.g. Goblin's Gambit"
+      />
+    </label>
+
+    <div class="field-row">
+      <label class="field">
+        <span>Start date</span>
+        <input formControlName="startDate" type="date" />
+      </label>
+      <label class="field">
+        <span>End date</span>
+        <input formControlName="endDate" type="date" />
+      </label>
+    </div>
+
+    <div class="field-row">
+      <label class="field">
+        <span>XP multiplier</span>
+        <input
+          formControlName="xpMultiplier"
+          type="number"
+          min="1"
+          step="0.5"
+        />
+      </label>
+      <label class="field">
+        <span>Drop rate multiplier</span>
+        <input
+          formControlName="dropRateMultiplier"
+          type="number"
+          min="1"
+          step="0.5"
+        />
+      </label>
+    </div>
+  </section>
+
+  <!-- Tab bar -->
+  <nav class="tab-bar" role="tablist">
+    @for (tab of tabs; track tab.id) {
+      <button
+        type="button"
+        role="tab"
+        class="tab-btn"
+        [class.active]="activeTab() === tab.id"
+        [attr.aria-selected]="activeTab() === tab.id"
+        (click)="selectTab(tab.id)"
+      >
+        {{ tab.label }}
+        @if (tab.id === "relics") {
+          <span class="tab-count">{{ relicTiers.length }}</span>
+        }
+        @if (tab.id === "rewards") {
+          <span class="tab-count">{{ rewards.length }}</span>
+        }
+      </button>
+    }
+  </nav>
+
+  <!-- Relics tab. [hidden] (not @if) keeps form/editor state alive across tab switches. -->
+  <section
+    class="card tab-panel"
+    [hidden]="activeTab() !== 'relics'"
+    role="tabpanel"
+  >
+    <div class="card-header">
+      <h2>Relic tiers</h2>
+      <button type="button" class="ghost-btn" (click)="addRelicTier()">
+        + Add tier
+      </button>
+    </div>
+
+    @for (
+      tierGroup of relicTiers.controls;
+      track tierGroup;
+      let tierIndex = $index
+    ) {
+      <app-relic-tier-row
+        [tierGroup]="tierGroup"
+        [tierIndex]="tierIndex"
+        (tierRemoved)="removeRelicTier(tierIndex)"
+        (relicAdded)="addRelic(tierIndex)"
+        (relicRemoved)="removeRelic(tierIndex, $event)"
+        (passiveAdded)="addPassive(tierIndex)"
+        (passiveRemoved)="removePassive(tierIndex, $event)"
+        (effectAdded)="addEffect(tierIndex, $event)"
+        (effectRemoved)="
+          removeEffect(tierIndex, $event.relicIndex, $event.effectIndex)
+        "
+      />
+    }
+
+    @if (relicTiers.length === 0) {
+      <p class="empty-hint">No relic tiers yet — add one to get started.</p>
+    }
+  </section>
+
+  <!-- Pacts tab -->
+  <section
+    class="card tab-panel"
+    [hidden]="activeTab() !== 'pacts'"
+    role="tabpanel"
+  >
+    <div class="card-header">
+      <h2>Pact tree</h2>
+    </div>
+    <app-pact-tree-editor />
+  </section>
+
+  <!-- Rewards tab -->
+  <section
+    class="card tab-panel"
+    [hidden]="activeTab() !== 'rewards'"
+    role="tabpanel"
+  >
+    <div class="card-header">
+      <h2>Reward tiers</h2>
+      <button type="button" class="ghost-btn" (click)="addReward()">
+        + Add reward
+      </button>
+    </div>
+
+    @for (
+      rewardGroup of rewards.controls;
+      track rewardGroup;
+      let rewardIndex = $index
+    ) {
+      <fieldset [formGroup]="rewardGroup" class="reward-card">
+        <legend>Reward {{ rewardIndex + 1 }}</legend>
+        <button
+          type="button"
+          class="remove-btn"
+          (click)="removeReward(rewardIndex)"
+        >
+          Remove
+        </button>
+
+        <label class="field">
+          <span>Name</span>
+          <input formControlName="name" type="text" />
+        </label>
+        <label class="field">
+          <span>Threshold (points)</span>
+          <input formControlName="threshold" type="number" min="0" />
+        </label>
+        <label class="field">
+          <span>Description</span>
+          <textarea formControlName="description" rows="2"></textarea>
+        </label>
+      </fieldset>
+    }
+
+    @if (rewards.length === 0) {
+      <p class="empty-hint">No reward tiers yet — add one to get started.</p>
+    }
+  </section>
+
+  <button type="submit" class="submit-btn" [disabled]="form.invalid">
+    Create league
+  </button>
+</form>

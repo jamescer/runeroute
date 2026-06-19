@@ -1,17 +1,52 @@
 <div class="casket-simulator">
   <header class="simulator-header">
-    <h1>Clue Casket Simulator</h1>
-    <p class="subtitle">
-      Pick a casket, run simulations, and inspect every roll.
-    </p>
+    <div>
+      <p class="eyebrow">Treasure Trails</p>
+      <h1>Clue Casket Simulator</h1>
+      <p class="subtitle">
+        Choose a tier, open one or a stack, then review each casket alongside
+        your running loot log.
+      </p>
+    </div>
+
+    <div class="header-casket" aria-hidden="true">
+      <img
+        [src]="getCasketImage(selectedCasketType)"
+        [alt]="selectedCasketType + ' casket'"
+      />
+    </div>
   </header>
 
+  <section class="stats-strip" aria-label="Simulation totals">
+    <div class="stat-tile">
+      <span class="stat-label">Caskets Opened</span>
+      <span class="stat-value">{{ getTotalCasketsOpened() }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Items Looted</span>
+      <span class="stat-value">{{ getTotalItemsObtained() }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Unique Items</span>
+      <span class="stat-value">{{ totalLoot.length }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Avg. Items</span>
+      <span class="stat-value">{{
+        getAverageItemsPerCasket() | number: "1.1-1"
+      }}</span>
+    </div>
+  </section>
+
   <div class="simulator-layout">
-    <section class="controls-panel">
-      <h2>Simulation Setup</h2>
+    <section class="controls-panel" aria-labelledby="setup-title">
+      <div class="panel-heading">
+        <p class="eyebrow">Setup</p>
+        <h2 id="setup-title">Open caskets</h2>
+      </div>
 
       <div class="casket-selection">
-        <label class="section-label">Casket Type</label>
+        <label class="section-label">Casket tier</label>
         <div class="casket-buttons">
           <button
             *ngFor="let type of casketTypes"
@@ -19,7 +54,7 @@
             [class.active]="selectedCasketType === type"
             (click)="selectCasket(type)"
             class="casket-button"
-            [title]="type"
+            [attr.aria-pressed]="selectedCasketType === type"
           >
             <img [src]="getCasketImage(type)" [alt]="type + ' casket'" />
             <span>{{ type | titlecase }}</span>
@@ -28,12 +63,13 @@
       </div>
 
       <div class="quantity-section">
-        <label for="quantity" class="section-label">Amount to Open</label>
+        <label for="quantity" class="section-label">Amount to open</label>
         <div class="quantity-input-group">
           <button
             type="button"
             (click)="quantity = Math.max(1, quantity - 1)"
             class="qty-btn"
+            aria-label="Decrease quantity"
           >
             -
           </button>
@@ -48,40 +84,63 @@
             type="button"
             (click)="quantity = quantity + 1"
             class="qty-btn"
+            aria-label="Increase quantity"
           >
             +
           </button>
         </div>
       </div>
 
+      <div class="selected-summary">
+        <img
+          [src]="getCasketImage(selectedCasketType)"
+          [alt]="selectedCasketType + ' casket'"
+        />
+        <div>
+          <span class="section-label">Ready to open</span>
+          <strong
+            >{{ quantity }}x {{ selectedCasketType | titlecase }} Casket</strong
+          >
+        </div>
+      </div>
+
       <div class="action-buttons">
         <button type="button" (click)="simulate()" class="btn btn-primary">
-          Simulate {{ quantity }}x
+          Open {{ quantity }}x
         </button>
         <button type="button" (click)="resetLoot()" class="btn btn-secondary">
-          Reset
+          Reset log
         </button>
       </div>
     </section>
 
-    <section class="results-panel">
-      <div class="tab-navigation">
-        <button
-          type="button"
-          [class.active]="activeTab === 'openings'"
-          (click)="switchTab('openings')"
-          class="tab-btn"
-        >
-          Openings ({{ openingHistory.length }})
-        </button>
-        <button
-          type="button"
-          [class.active]="activeTab === 'total'"
-          (click)="switchTab('total')"
-          class="tab-btn"
-        >
-          Total Items ({{ totalLoot.length }})
-        </button>
+    <section class="results-panel" aria-labelledby="results-title">
+      <div class="results-header">
+        <div>
+          <p class="eyebrow">Results</p>
+          <h2 id="results-title">Loot history</h2>
+        </div>
+
+        <div class="tab-navigation" role="tablist" aria-label="Loot views">
+          <button
+            type="button"
+            [class.active]="activeTab === 'openings'"
+            (click)="switchTab('openings')"
+            class="tab-btn"
+          >
+            Openings
+            <span>{{ openingHistory.length }}</span>
+          </button>
+          <button
+            type="button"
+            [class.active]="activeTab === 'total'"
+            (click)="switchTab('total')"
+            class="tab-btn"
+          >
+            Loot Log
+            <span>{{ totalLoot.length }}</span>
+          </button>
+        </div>
       </div>
 
       <div class="tab-content">
@@ -90,42 +149,17 @@
             *ngIf="openingHistory.length > 0; else noOpenings"
             class="openings-list"
           >
-            <article
-              class="opening-card"
+            <app-casket-card
               *ngFor="let opening of openingHistory"
-            >
-              <div class="opening-header">
-                <div>
-                  <p class="opening-title">
-                    Opening #{{ opening.openingNumber }}
-                  </p>
-                  <p class="opening-subtitle">
-                    {{ opening.casketType | titlecase }} Casket
-                  </p>
-                </div>
-                <img
-                  [src]="getCasketImage(opening.casketType)"
-                  [alt]="opening.casketType + ' casket'"
-                />
-              </div>
-
-              <ul class="opening-items">
-                <li *ngFor="let item of opening.items" class="opening-item">
-                  <img [src]="getItemImage(item.name)" [alt]="item.name" />
-                  <span class="item-name">{{ item.name }}</span>
-                  <span class="item-qty">x{{ getItemQuantity(item) }}</span>
-                </li>
-              </ul>
-
-              <p class="opening-total">
-                Total item count: {{ getOpeningItemTotal(opening) }}
-              </p>
-            </article>
+              [opening]="opening"
+            ></app-casket-card>
           </div>
           <ng-template #noOpenings>
-            <p class="empty-message">
-              No openings yet. Run a simulation to populate this list.
-            </p>
+            <div class="empty-state">
+              <img [src]="getCasketImage(selectedCasketType)" alt="" />
+              <p>No caskets opened yet.</p>
+              <span>Run a simulation and each opening will appear here.</span>
+            </div>
           </ng-template>
         </div>
 
@@ -134,30 +168,18 @@
             *ngIf="totalLoot.length > 0; else noLoot"
             class="total-loot-grid"
           >
-            <article *ngFor="let item of totalLoot" class="total-loot-item">
-              <img
-                [src]="getItemImage(item.name)"
-                [alt]="item.name"
-                class="item-icon"
-              />
-              <p class="item-name">{{ item.name }}</p>
-              <p class="item-quantity">x{{ item.quantity }}</p>
-            </article>
+            <app-loot-card
+              *ngFor="let lootItem of totalLoot"
+              [lootItem]="lootItem"
+            ></app-loot-card>
           </div>
           <ng-template #noLoot>
-            <p class="empty-message">No loot tracked yet.</p>
+            <div class="empty-state">
+              <img [src]="getCasketImage(selectedCasketType)" alt="" />
+              <p>Your loot log is empty.</p>
+              <span>Total rewards collect here across every simulation.</span>
+            </div>
           </ng-template>
-        </div>
-      </div>
-
-      <div class="loot-summary" *ngIf="totalLoot.length > 0">
-        <div class="summary-stat">
-          <span class="label">Total Items</span>
-          <span class="value">{{ getTotalItemsObtained() }}</span>
-        </div>
-        <div class="summary-stat">
-          <span class="label">Unique Items</span>
-          <span class="value">{{ totalLoot.length }}</span>
         </div>
       </div>
     </section>

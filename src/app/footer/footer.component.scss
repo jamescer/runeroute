@@ -1,26 +1,19 @@
 .footer {
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 220, 160, 0.02) 0,
-      rgba(255, 220, 160, 0.02) 3px,
-      transparent 3px,
-      transparent 10px
-    ),
-    linear-gradient(180deg, #2c1d12 0%, #20140d 100%);
+  background: #20140d;
   border-top: 3px solid #805527;
   color: var(--osrs-text-primary);
   margin-top: 3rem;
-  box-shadow: inset 0 1px 0 rgba(255, 219, 154, 0.1), 0 -6px 14px rgba(0, 0, 0, 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 219, 154, 0.1), 0 -6px 14px rgba(0, 0, 0, 0.32);
 }
+
 
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  padding: 2.5rem 2rem;
+  gap: 1rem;
+  padding: 1.5rem 1rem;
 }
 
 .footer-section {

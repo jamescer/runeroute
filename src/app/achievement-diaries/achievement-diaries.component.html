@@ -1,39 +1,71 @@
 <div class="diaries-page">
   <header class="page-header">
-    <h1>
-      <img
-        [src]="tabIconPaths.quest"
-        alt="Quest tab icon"
-        class="header-icon"
-      />
-      Achievement Diaries
-    </h1>
-    <p class="subtitle">
-      Browse every OSRS diary and explore tasks by difficulty level
-    </p>
+    <div>
+      <p class="eyebrow">Achievement guide</p>
+      <h1>Achievement Diaries</h1>
+      <p class="subtitle">
+        Browse every OSRS diary, switch difficulty tiers, and scan tasks,
+        required quests, items, and rewards without losing your place.
+      </p>
+    </div>
+
+    <div class="header-icon" aria-hidden="true">
+      <img [src]="tabIconPaths.quest" alt="" />
+    </div>
   </header>
 
+  <section class="stats-strip" aria-label="Diary overview">
+    <div class="stat-tile">
+      <span class="stat-label">Diaries</span>
+      <span class="stat-value">{{ allDiaries.length }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Results</span>
+      <span class="stat-value">{{ filteredDiaries.length }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">All Tasks</span>
+      <span class="stat-value">{{ getAllTaskCount() }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Selected Tasks</span>
+      <span class="stat-value">
+        {{ selectedDiary ? getTaskCount(selectedDiary, selectedLevel) : 0 }}
+      </span>
+    </div>
+  </section>
+
   <div class="diaries-layout">
-    <aside class="diary-list-panel">
-      <div class="search-wrap">
-        <input
-          type="text"
-          [(ngModel)]="searchTerm"
-          (input)="searchDiaries()"
-          class="search-input"
-          placeholder="Search diaries..."
-        />
+    <aside class="diary-browser" aria-labelledby="diary-browser-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Browse</p>
+          <h2 id="diary-browser-title">Find a diary</h2>
+        </div>
+        <span class="result-pill">{{ filteredDiaries.length }}</span>
       </div>
 
-      <p class="result-count">{{ filteredDiaries.length }} diaries</p>
+      <label class="search-box" for="diary-search">
+        <span class="search-label">Diary region</span>
+        <input
+          id="diary-search"
+          type="search"
+          [(ngModel)]="searchTerm"
+          (input)="searchDiaries()"
+          placeholder="Search diaries..."
+          autocomplete="off"
+        />
+      </label>
 
-      <div class="diary-list">
+      <div class="diary-list" role="list">
         <button
-          *ngFor="let diary of filteredDiaries"
+          *ngFor="let diary of filteredDiaries; trackBy: trackByDiaryName"
           type="button"
           class="diary-list-item"
           [class.active]="selectedDiary?.name === diary.name"
           (click)="selectDiary(diary)"
+          [attr.aria-pressed]="selectedDiary?.name === diary.name"
+          role="listitem"
         >
           <img
             class="diary-icon"
@@ -41,87 +73,138 @@
             [alt]="diary.name + ' icon'"
           />
 
-          <span class="diary-name">{{ diary.name }}</span>
-          <span class="task-total">{{ getTotalTasks(diary) }} tasks</span>
+          <span class="diary-copy">
+            <span class="diary-name">{{ diary.name }}</span>
+            <span class="task-total">{{ getTotalTasks(diary) }} tasks</span>
+          </span>
         </button>
 
-        <div *ngIf="filteredDiaries.length === 0" class="empty-list">
-          No diaries matched your search.
+        <div *ngIf="filteredDiaries.length === 0" class="empty-state compact">
+          <img [src]="tabIconPaths.quest" alt="" />
+          <p>No diaries found</p>
+          <span>Try a shorter or different region name.</span>
         </div>
       </div>
     </aside>
 
-    <section
+    <main
       class="diary-details-panel"
       *ngIf="selectedDiary as diary; else noSelection"
+      aria-live="polite"
     >
-      <div class="details-header">
-        <h2>
-          <img
-            class="details-icon"
-            [src]="getDiaryIconPath(diary.name)"
-            [alt]="diary.name + ' icon'"
-          />
-          {{ diary.name }}
-        </h2>
-        <p>Total tasks: {{ getTotalTasks(diary) }}</p>
-      </div>
-
-      <div class="level-tabs">
-        <button
-          *ngFor="let level of levels"
-          type="button"
-          class="level-tab"
-          [class.active]="selectedLevel === level"
-          (click)="selectLevel(level)"
-        >
-          <img
-            [src]="getLevelIconPath(level)"
-            [alt]="formatLevel(level) + ' icon'"
-            class="level-icon"
-          />
-          {{ formatLevel(level) }} ({{ getTaskCount(diary, level) }})
-        </button>
-      </div>
-
-      <div class="level-content" *ngIf="getSelectedLevelData() as levelData">
-        <div
-          class="level-meta"
-          *ngIf="
-            levelData.itemReward ||
-            levelData.itemsRequired?.length ||
-            levelData.questsRequired?.length
-          "
-        >
-          <p *ngIf="levelData.itemReward">
-            <strong>Reward Item:</strong> {{ levelData.itemReward }}
-          </p>
-          <p *ngIf="levelData.itemsRequired?.length">
-            <strong>Items Required:</strong>
-            {{ levelData.itemsRequired?.join(", ") }}
-          </p>
-          <p *ngIf="levelData.questsRequired?.length">
-            <strong>Quests Required:</strong>
-            {{ levelData.questsRequired?.join(", ") }}
-          </p>
+      <article class="diary-details">
+        <div class="details-hero">
+          <div>
+            <p class="eyebrow">Region diary</p>
+            <h2>
+              <img
+                class="details-icon"
+                [src]="getDiaryIconPath(diary.name)"
+                [alt]="diary.name + ' icon'"
+              />
+              {{ diary.name }}
+            </h2>
+            <p class="description">
+              Review each tier for {{ diary.name.replace(' Diary', '') }} and
+              prep the items, quests, and task route before you start.
+            </p>
+          </div>
         </div>
 
-        <ol class="task-list">
-          <li *ngFor="let task of levelData.tasks" class="task-item">
-            <p class="task-description">{{ task.description }}</p>
-            <p *ngIf="task.notes" class="task-notes">{{ task.notes }}</p>
-            <p *ngIf="task.requirements?.length" class="task-req-count">
-              Requirements: {{ task.requirements?.length }}
-            </p>
-          </li>
-        </ol>
-      </div>
-    </section>
+        <div class="level-tabs" role="tablist" aria-label="Diary levels">
+          <button
+            *ngFor="let level of levels"
+            type="button"
+            class="level-tab"
+            [class.active]="selectedLevel === level"
+            (click)="selectLevel(level)"
+            [attr.aria-selected]="selectedLevel === level"
+            role="tab"
+          >
+            <img
+              [src]="getLevelIconPath(level)"
+              [alt]="formatLevel(level) + ' icon'"
+              class="level-icon"
+            />
+            <span>{{ formatLevel(level) }}</span>
+            <strong>{{ getTaskCount(diary, level) }}</strong>
+          </button>
+        </div>
+
+        <div class="detail-summary" *ngIf="getSelectedLevelData() as levelData">
+          <div class="summary-tile">
+            <span>Total Tasks</span>
+            <strong>{{ getTotalTasks(diary) }}</strong>
+          </div>
+          <div class="summary-tile">
+            <span>{{ formatLevel(selectedLevel) }} Tasks</span>
+            <strong>{{ levelData.tasks.length }}</strong>
+          </div>
+          <div class="summary-tile">
+            <span>Required Quests</span>
+            <strong>{{ levelData.questsRequired?.length || 0 }}</strong>
+          </div>
+          <div class="summary-tile">
+            <span>Required Items</span>
+            <strong>{{ levelData.itemsRequired?.length || 0 }}</strong>
+          </div>
+        </div>
+
+        <section
+          class="detail-section"
+          *ngIf="getSelectedLevelData() as levelData"
+          aria-labelledby="level-overview-title"
+        >
+          <div class="section-heading">
+            <h3 id="level-overview-title">{{ formatLevel(selectedLevel) }} overview</h3>
+            <span>{{ levelData.tasks.length }}</span>
+          </div>
+
+          <div
+            class="level-meta-grid"
+            *ngIf="
+              levelData.itemReward ||
+              levelData.itemsRequired?.length ||
+              levelData.questsRequired?.length
+            "
+          >
+            <div class="meta-card" *ngIf="levelData.itemReward">
+              <span>Reward Item</span>
+              <strong>{{ levelData.itemReward }}</strong>
+            </div>
+            <div class="meta-card" *ngIf="levelData.itemsRequired?.length">
+              <span>Items Required</span>
+              <strong>{{ levelData.itemsRequired?.join(', ') }}</strong>
+            </div>
+            <div class="meta-card" *ngIf="levelData.questsRequired?.length">
+              <span>Quests Required</span>
+              <strong>{{ levelData.questsRequired?.join(', ') }}</strong>
+            </div>
+          </div>
+
+          <ol class="task-list">
+            <li *ngFor="let task of levelData.tasks; let idx = index">
+              <span class="task-number">{{ idx + 1 }}</span>
+              <span class="task-copy">
+                <span class="task-description">{{ task.description }}</span>
+                <span *ngIf="task.notes" class="task-notes">{{ task.notes }}</span>
+                <span *ngIf="task.requirements?.length" class="task-req-count">
+                  {{ task.requirements?.length }} requirements
+                </span>
+              </span>
+            </li>
+          </ol>
+        </section>
+      </article>
+    </main>
 
     <ng-template #noSelection>
-      <section class="diary-details-panel empty-state">
-        <h2>No diary selected</h2>
-        <p>Select a diary from the left to view task details.</p>
+      <section class="diary-details-panel">
+        <div class="empty-state">
+          <img [src]="tabIconPaths.quest" alt="" />
+          <p>Select a diary</p>
+          <span>Choose a diary from the browser to view task details.</span>
+        </div>
       </section>
     </ng-template>
   </div>

@@ -1,36 +1,94 @@
-<section class="hero">
-  <h1>OSRS Simulators</h1>
-  <p>Old School RuneScape tools and simulators</p>
-</section>
+<section class="home-shell">
+  <section class="hero" aria-labelledby="home-title">
+    <div class="hero-copy">
+      <img
+        class="hero-logo"
+        src="assets/home/old-school-runescape-logo.png"
+        alt="Old School RuneScape"
+      />
+      <h1 id="home-title">RuneRoute</h1>
+      <p>
+        Plan quests, browse diaries, shape Hunter rumours, and open clue caskets
+        from one compact Old School workspace.
+      </p>
+      <div class="hero-actions" aria-label="Primary simulators">
+        <a routerLink="/casket-simulator" class="primary-action">
+          <img src="assets/items/reward-casket-master.png" alt="" />
+          Open caskets
+        </a>
+        <a routerLink="/quest-simulator" class="secondary-action">
+          <img src="assets/icons/tabs/Quest_Tab.png" alt="" />
+          Browse quests
+        </a>
+      </div>
+    </div>
 
-<section class="simulators-grid">
-  <div class="simulator-card">
-    <h2>Casket Simulator</h2>
-    <p>
-      Simulate opening clue scroll caskets and view potential rewards based on
-      your luck.
-    </p>
-    <a routerLink="/casket-simulator" class="btn btn-primary"
-      >Open Simulator</a
-    >
-  </div>
-  <div class="simulator-card">
-    <h2>Quest Simulator</h2>
-    <p>
-      Explore all OSRS quests, search for quests, and view their requirements,
-      rewards, and steps.
-    </p>
-    <a routerLink="/quest-simulator" class="btn btn-primary"
-      >Open Simulator</a
-    >
-  </div>
-  <div class="simulator-card">
-    <h2>Slayer Simulator</h2>
-    <p>
-      Simulate slayer tasks and explore different slayer masters' assignments.
-    </p>
-    <a routerLink="/slayer-simulator" class="btn btn-primary"
-      >Open Simulator</a
-    >
-  </div>
+    <div class="hero-inventory" aria-label="Featured rewards">
+      <div class="inventory-slot featured">
+        <img src="assets/items/3rd-age-pickaxe.png" alt="3rd age pickaxe" />
+      </div>
+      <div class="inventory-slot">
+        <img src="assets/items/ranger-boots.png" alt="Ranger boots" />
+      </div>
+      <div class="inventory-slot">
+        <img src="assets/items/robin-hood-hat.png" alt="Robin hood hat" />
+      </div>
+      <div class="inventory-slot">
+        <img src="assets/items/gilded-platebody.png" alt="Gilded platebody" />
+      </div>
+      <div class="inventory-slot">
+        <img src="assets/items/dragon-boots.png" alt="Dragon boots" />
+      </div>
+      <div class="inventory-slot">
+        <img src="assets/items/clue-scroll-master.png" alt="Master clue scroll" />
+      </div>
+    </div>
+  </section>
+
+  <section class="simulators-grid" aria-label="Available tools">
+    <a routerLink="/casket-simulator" class="simulator-card">
+      <span class="card-icon">
+        <img src="assets/items/reward-casket-hard.png" alt="" />
+      </span>
+      <span class="card-kicker">Clue Scrolls</span>
+      <h2>Casket Simulator</h2>
+      <p>Open clue caskets, sort your loot, and chase the improbable flex.</p>
+    </a>
+
+    <a routerLink="/quest-simulator" class="simulator-card">
+      <span class="card-icon">
+        <img src="assets/icons/tabs/Quest_Tab.png" alt="" />
+      </span>
+      <span class="card-kicker">Account Progress</span>
+      <h2>Quest Simulator</h2>
+      <p>Search quests and inspect requirements, rewards, and steps.</p>
+    </a>
+
+    <a routerLink="/achievement-diaries" class="simulator-card">
+      <span class="card-icon">
+        <img src="assets/icons/diaries/Ardougne_Diary.png" alt="" />
+      </span>
+      <span class="card-kicker">Regions</span>
+      <h2>Achievement Diaries</h2>
+      <p>Review diary tiers and the unlocks worth building your route around.</p>
+    </a>
+
+    <a routerLink="/slayer-simulator" class="simulator-card">
+      <span class="card-icon">
+        <img src="assets/icons/skills/Slayer_icon.png" alt="" />
+      </span>
+      <span class="card-kicker">Combat</span>
+      <h2>Slayer Simulator</h2>
+      <p>Preview assignments and compare different slayer master pools.</p>
+    </a>
+
+    <a routerLink="/hunter-guild" class="simulator-card">
+      <span class="card-icon">
+        <img src="assets/icons/skills/Hunter_icon.png" alt="" />
+      </span>
+      <span class="card-kicker">Skilling</span>
+      <h2>Hunter Guild</h2>
+      <p>Explore hunter contracts, masters, and guild progress options.</p>
+    </a>
+  </section>
 </section>

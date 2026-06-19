@@ -1,437 +1,496 @@
+:host {
+  display: block;
+}
+
 .quest-simulator {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 2rem;
+  max-width: 1440px;
+  margin: auto;
+  padding: 1rem;
+  color: var(--osrs-text-primary);
+}
+
+.simulator-header,
+.stats-strip,
+.quest-browser,
+.quest-details-panel {
+  border: 1px solid rgba(194, 154, 89, 0.28);
+  border-radius: 8px;
+  background: rgba(21, 16, 12, 0.84);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
 }
 
 .simulator-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  padding: 2rem;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(139, 115, 85, 0.1) 100%);
-  border: 2px solid var(--osrs-gold);
-  border-radius: 4px;
-
-  h1 {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
-    margin: 0 0 0.5rem 0;
-    font-size: 2.5rem;
-    color: var(--osrs-gold);
-
-    .title-icon {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-      image-rendering: pixelated;
-    }
-  }
-
-  .subtitle {
-    margin: 0;
-    font-size: 1.1rem;
-    color: var(--osrs-text-primary);
-  }
-}
-
-.quest-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  flex: 1;
-}
-
-.search-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
-  .search-box {
-    position: relative;
-    max-width: 500px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .search-input {
-    width: 100%;
-    padding: 0.75rem 2.5rem 0.75rem 1rem;
-    font-size: 1rem;
-    border: 2px solid var(--osrs-gold);
-    background: linear-gradient(135deg, var(--osrs-dark) 0%, var(--osrs-brown) 100%);
-    color: var(--osrs-text-primary);
-    border-radius: 6px;
-    outline: none;
-
-    &:focus {
-      border-color: var(--osrs-gold);
-    }
-
-    &::placeholder {
-      color: var(--osrs-text-secondary);
-    }
-  }
-
-  .search-icon {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    image-rendering: pixelated;
-  }
-
-  .result-count {
-    text-align: center;
-    color: var(--osrs-text-secondary);
-    font-size: 0.95rem;
-    margin: 0;
-  }
-}
-
-.content-wrapper {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 2rem;
-  flex: 1;
-  min-height: 500px;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: 1fr auto;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(64, 48, 35, 0.88),
+    rgba(18, 14, 11, 0.94)
+  );
 }
 
-.quest-list-section {
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(10, 14, 39, 0.9) 100%);
-  border: 2px solid var(--osrs-gold);
-  border-radius: 8px;
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  color: var(--osrs-gold-light);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  line-height: 1.05;
+}
+
+h2 {
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+img {
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.subtitle {
+  max-width: 760px;
+  margin-top: 0.65rem;
+  color: var(--osrs-text-secondary);
+  line-height: 1.55;
+}
+
+.eyebrow,
+.stat-label,
+.search-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: #8fc9b0;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.stat-label,
+.search-label {
+  color: var(--osrs-text-secondary);
+}
+
+.header-icon {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.header-icon img {
+  width: 58px;
+  height: 58px;
+}
+
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin: 1rem 0;
   overflow: hidden;
-
-  .quest-list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background: linear-gradient(135deg, var(--osrs-gold-dark) 0%, var(--osrs-gold) 100%);
-    border-bottom: 2px solid var(--osrs-stone);
-
-    h2 {
-      margin: 0;
-      font-size: 1.3rem;
-      color: var(--osrs-dark);
-    }
-
-    .badge {
-      background: rgba(0, 0, 0, 0.3);
-      color: var(--osrs-text-primary);
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-  }
-
-  .quest-list {
-    overflow-y: auto;
-    flex: 1;
-    max-height: 600px;
-  }
-
-  .quest-item {
-    padding: 1rem;
-    border-bottom: 1px solid var(--osrs-border);
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--osrs-text-primary);
-
-    &:hover {
-      background-color: rgba(212, 175, 55, 0.1);
-      border-left: 4px solid var(--osrs-gold);
-      padding-left: calc(1rem - 4px);
-    }
-
-    &.active {
-      background: linear-gradient(135deg, var(--osrs-gold-dark) 0%, var(--osrs-gold) 100%);
-      color: var(--osrs-dark);
-      font-weight: 600;
-    }
-
-    .quest-name {
-      flex: 1;
-      word-break: break-word;
-    }
-
-    .mini-badge {
-      font-size: 0.75rem;
-      background: var(--osrs-stone);
-      color: var(--osrs-text-primary);
-      padding: 0.25rem 0.5rem;
-      border-radius: 3px;
-      white-space: nowrap;
-    }
-  }
-
-  .no-results {
-    padding: 2rem 1rem;
-    text-align: center;
-    color: var(--osrs-text-secondary);
-
-    p {
-      margin: 0;
-    }
-  }
 }
 
-.quest-details-section {
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(10, 14, 39, 0.9) 100%);
-  border: 2px solid var(--osrs-gold);
+.stat-tile {
+  padding: 1rem;
+  background: rgba(47, 35, 25, 0.74);
+}
+
+.stat-value {
+  display: block;
+  color: var(--osrs-gold-light);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.quest-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 380px) 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.quest-browser,
+.quest-details-panel {
+  overflow: hidden;
+}
+
+.quest-browser {
+  display: flex;
+  min-height: 700px;
+  max-height: calc(100vh - 220px);
+  flex-direction: column;
+}
+
+.panel-heading,
+.section-heading,
+.details-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: start;
+}
+
+.panel-heading {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(194, 154, 89, 0.18);
+}
+
+.result-pill,
+.section-heading span {
+  min-width: 2.1rem;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid rgba(143, 201, 176, 0.28);
+  border-radius: 999px;
+  color: #8fc9b0;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.search-box {
+  display: block;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(194, 154, 89, 0.18);
+}
+
+.search-box input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 0.85rem;
+}
+
+.quest-list {
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+  padding: 0.75rem;
+  overflow: auto;
+}
+
+.quest-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  min-height: 58px;
+  padding: 0.75rem;
+  border: 1px solid rgba(194, 154, 89, 0.16);
   border-radius: 8px;
-  padding: 2rem;
-  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--osrs-text-primary);
+  font: inherit;
+  text-align: left;
+}
 
-  .no-selection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--osrs-text-secondary);
-    padding: 3rem 2rem;
+.quest-item:hover,
+.quest-item.active {
+  border-color: var(--osrs-gold-light);
+}
 
-    .empty-icon {
-      width: 56px;
-      height: 56px;
-      margin-bottom: 1rem;
-      object-fit: contain;
-      image-rendering: pixelated;
-    }
+.quest-item.active {
+  background: rgba(226, 196, 120, 0.14);
+}
 
-    h3 {
-      margin: 0 0 0.5rem 0;
-      color: var(--osrs-gold);
-    }
+.quest-copy,
+.reward-copy {
+  display: grid;
+  min-width: 0;
+  gap: 0.12rem;
+}
 
-    p {
-      margin: 0;
-    }
-  }
+.quest-name,
+.reward-label {
+  overflow: hidden;
+  color: var(--osrs-text-primary);
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quest-meta,
+.reward-value {
+  color: var(--osrs-text-secondary);
+  font-size: 0.86rem;
+}
+
+.mini-badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(143, 201, 176, 0.12);
+  color: #8fc9b0;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.quest-details-panel {
+  min-height: 700px;
+  background: rgba(18, 14, 11, 0.9);
 }
 
 .quest-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
 
-  .details-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--osrs-gold);
+.details-hero {
+  padding: 1.25rem;
+  border: 1px solid rgba(194, 154, 89, 0.18);
+  border-radius: 8px;
+  background: rgba(47, 35, 25, 0.58);
+}
 
-    h2 {
-      margin: 0;
-      color: var(--osrs-gold);
-      font-size: 1.8rem;
-      flex: 1;
-    }
+.details-hero h2 {
+  color: var(--osrs-gold-light);
+  font-size: clamp(1.45rem, 2.4vw, 2.25rem);
+}
 
-    .mini-badge-large {
-      background: var(--osrs-stone);
-      color: var(--osrs-text-primary);
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
+.description {
+  max-width: 900px;
+  margin-top: 0.75rem;
+  color: var(--osrs-text-secondary);
+  line-height: 1.6;
+}
 
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--osrs-text-secondary);
-    }
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(194, 154, 89, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--osrs-text-secondary);
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.icon-button:hover {
+  border-color: var(--osrs-gold-light);
+  color: var(--osrs-gold-light);
+}
+
+.detail-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.summary-tile {
+  padding: 0.85rem;
+  border: 1px solid rgba(194, 154, 89, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.summary-tile span {
+  display: block;
+  color: var(--osrs-text-secondary);
+  font-size: 0.82rem;
+}
+
+.summary-tile strong {
+  color: var(--osrs-gold-light);
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+.detail-section,
+.raw-data {
+  padding: 1rem;
+  border: 1px solid rgba(194, 154, 89, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.section-heading {
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(194, 154, 89, 0.14);
+}
+
+.requirements-grid,
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.7rem;
+}
+
+.requirement-item,
+.reward-item {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: center;
+  min-height: 56px;
+  padding: 0.75rem;
+  border: 1px solid rgba(194, 154, 89, 0.14);
+  border-radius: 8px;
+  background: rgba(28, 21, 16, 0.8);
+}
+
+.requirement-item img,
+.reward-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.reward-skill {
+  border-color: rgba(115, 168, 75, 0.35);
+}
+
+.reward-skill .reward-value {
+  color: var(--osrs-success);
+}
+
+.reward-questpoints,
+.reward-money {
+  border-color: rgba(226, 196, 120, 0.35);
+}
+
+.reward-questpoints .reward-value,
+.reward-money .reward-value {
+  color: var(--osrs-gold-light);
+}
+
+.reward-misc,
+.reward-item {
+  border-color: rgba(127, 106, 83, 0.36);
+}
+
+.steps-list {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.steps-list li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: rgba(28, 21, 16, 0.8);
+}
+
+.step-number {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: var(--osrs-gold-light);
+  color: #21160d;
+  font-weight: 800;
+}
+
+.steps-list p {
+  color: var(--osrs-text-primary);
+}
+
+.raw-data summary {
+  color: var(--osrs-gold-light);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.raw-data pre {
+  margin-top: 1rem;
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.34);
+  color: var(--osrs-text-primary);
+  font-size: 0.82rem;
+}
+
+.empty-state {
+  display: grid;
+  min-height: 520px;
+  place-items: center;
+  align-content: center;
+  gap: 0.45rem;
+  padding: 2rem;
+  color: var(--osrs-text-secondary);
+  text-align: center;
+}
+
+.empty-state.compact {
+  min-height: 260px;
+}
+
+.empty-state img {
+  width: 58px;
+  height: 58px;
+}
+
+.empty-state p {
+  color: var(--osrs-text-primary);
+  font-weight: 800;
+}
+
+@media (max-width: 1100px) {
+  .quest-layout {
+    grid-template-columns: 1fr;
   }
 
-  .detail-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    h3 {
-      margin: 0.5rem 0 0 0;
-      color: var(--osrs-gold);
-      font-size: 1.2rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .description {
-      color: var(--osrs-text-primary);
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .requirements-list,
-    .rewards-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .requirement-item,
-    .reward-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem;
-      background: rgba(212, 175, 55, 0.05);
-      border-left: 3px solid var(--osrs-gold);
-      border-radius: 4px;
-      color: var(--osrs-text-primary);
-
-      .requirement-badge,
-      .reward-icon {
-        width: 22px;
-        height: 22px;
-        min-width: 22px;
-        object-fit: contain;
-        image-rendering: pixelated;
-      }
-
-      .reward-content {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-
-        .reward-label {
-          font-weight: 600;
-          color: var(--osrs-gold);
-          font-size: 0.95rem;
-        }
-
-        .reward-value {
-          color: var(--osrs-text-secondary);
-          font-size: 0.85rem;
-          font-weight: 600;
-        }
-      }
-    }
-
-    // Reward type specific styling
-    .reward-skill {
-      border-left-color: var(--osrs-success);
-      background: rgba(74, 157, 74, 0.1);
-
-      .reward-value {
-        color: var(--osrs-success);
-      }
-    }
-
-    .reward-questpoints,
-    .reward-money {
-      border-left-color: var(--osrs-gold);
-      background: rgba(212, 175, 55, 0.1);
-
-      .reward-value {
-        color: var(--osrs-gold);
-      }
-    }
-
-    .reward-item {
-      border-left-color: var(--osrs-stone-light);
-      background: rgba(168, 130, 92, 0.1);
-
-      .reward-value {
-        color: var(--osrs-stone-light);
-      }
-    }
-
-    .reward-misc {
-      border-left-color: var(--osrs-stone);
-      background: rgba(139, 115, 85, 0.1);
-
-      .reward-value {
-        color: var(--osrs-stone-light);
-      }
-    }
-
-    .steps-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .step-item {
-      display: flex;
-      gap: 1rem;
-      padding: 0.75rem;
-      background: rgba(212, 175, 55, 0.05);
-      border-radius: 4px;
-
-      .step-number {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        background: linear-gradient(135deg, var(--osrs-gold-dark) 0%, var(--osrs-gold) 100%);
-        color: var(--osrs-dark);
-        border-radius: 50%;
-        font-weight: 600;
-        flex-shrink: 0;
-      }
-
-      .step-text {
-        margin: 0;
-        color: var(--osrs-text-primary);
-        line-height: 1.6;
-      }
-    }
-
-    .info-text {
-      font-weight: 600;
-      margin: 0;
-      padding: 0.75rem;
-      background: linear-gradient(135deg, var(--osrs-gold-dark) 0%, var(--osrs-gold) 100%);
-      color: var(--osrs-dark);
-      border-radius: 4px;
-    }
+  .quest-browser {
+    min-height: 0;
+    max-height: none;
   }
 
-  .raw-data {
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--osrs-gold);
-    cursor: pointer;
+  .quest-list {
+    max-height: 420px;
+  }
 
-    summary {
-      color: var(--osrs-gold);
-      font-weight: 600;
-      user-select: none;
-    }
+  .quest-details-panel {
+    min-height: 520px;
+  }
+}
 
-    pre {
-      margin: 1rem 0 0 0;
-      overflow-x: auto;
-      font-size: 0.85rem;
-      line-height: 1.4;
-      color: var(--osrs-text-primary);
-      background: rgba(0, 0, 0, 0.5);
-      padding: 1rem;
-      border-radius: 4px;
-    }
+@media (max-width: 760px) {
+  .simulator-header,
+  .stats-strip,
+  .detail-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .header-icon {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .simulator-header,
+  .stats-strip,
+  .detail-summary,
+  .requirements-grid,
+  .rewards-grid,
+  .details-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .quest-simulator {
+    padding: 0.75rem;
+  }
+
+  .icon-button {
+    justify-self: start;
   }
 }

@@ -5,6 +5,9 @@ import { CasketSimulatorComponent } from './casket-simulator/casket-simulator.co
 import { SlayerSimulatorComponent } from './slayer-simulator/slayer-simulator.component';
 import { QuestSimulatorComponent } from './quest-simulator/quest-simulator.component';
 import { AchievementDiariesComponent } from './achievement-diaries/achievement-diaries.component';
+import { HunterGuildComponent } from './hunter-guild/hunter-guild.component';
+import { LeagueBuilderComponent } from './league-builder/league-builder.component';
+
 
 export const routes: Routes = [
   {
@@ -25,12 +28,20 @@ export const routes: Routes = [
     loadComponent: () => CasketSimulatorComponent,
   },
   {
+    path: 'league-builder',
+    loadComponent: () => LeagueBuilderComponent,
+  },
+  {
     path: 'quest-simulator',
     loadComponent: () => QuestSimulatorComponent,
   },
   {
     path: 'achievement-diaries',
     loadComponent: () => AchievementDiariesComponent,
+  },
+  {
+    path: 'hunter-guild',
+    loadComponent: () => HunterGuildComponent,
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },

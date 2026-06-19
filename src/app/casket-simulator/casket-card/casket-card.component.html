@@ -1,0 +1,24 @@
+<div class="opening-card">
+  <div class="opening-header">
+    <div class="opening-heading">
+      <img
+        class="casket-icon"
+        [src]="getCasketImage(opening.casketType)"
+        [alt]="opening.casketType + ' casket'"
+      />
+      <div>
+      <p class="opening-title">Opening #{{ opening.openingNumber }}</p>
+      <p class="opening-subtitle">{{ opening.casketType | titlecase }} Casket</p>
+      </div>
+    </div>
+    <span class="opening-total">{{ getTotalCount() }} items</span>
+  </div>
+
+  <ul class="opening-items">
+    <li *ngFor="let item of opening.items" class="opening-item">
+      <img [src]="getItemImage(item.name)" [alt]="item.name" />
+      <span class="item-name">{{ item.name }}</span>
+      <span class="item-qty">x{{ getItemQuantity(item.quantity) }}</span>
+    </li>
+  </ul>
+</div>

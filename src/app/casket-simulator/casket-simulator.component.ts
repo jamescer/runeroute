@@ -1,26 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { ClueScrollHelper, Item, CasketReward } from 'osrs-tools';
-
-interface LootItem {
-  name: string;
-  quantity: number;
-  image?: string;
-}
-
-interface OpeningRecord {
-  casketType: 'beginner' | 'easy' | 'medium' | 'hard' | 'elite' | 'master';
-  items: Item[];
-  timestamp: Date;
-  reward: CasketReward;
-  openingNumber: number;
-}
+import { CasketCardComponent } from './casket-card/casket-card.component';
+import { LootCardComponent } from './loot-card/loot-card.component';
+import { ClueScrollHelper, Item } from 'osrs-tools';
+import { LootItem, OpeningRecord } from './casket-simulator.models';
 
 @Component({
   selector: 'app-casket-simulator',
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CasketCardComponent,
+    LootCardComponent,
+  ],
   templateUrl: './casket-simulator.component.html',
   styleUrls: ['./casket-simulator.component.scss'],
 })
@@ -43,7 +36,7 @@ export class CasketSimulatorComponent implements OnInit {
   public activeTab: 'openings' | 'total' = 'openings';
   public openingHistory: OpeningRecord[] = [];
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     // No setup needed yet; controls are template driven.
@@ -89,21 +82,34 @@ export class CasketSimulatorComponent implements OnInit {
     for (const item of items) {
       const itemName = item.name;
       const itemQuantity = this.getItemQuantity(item);
-      const existingItem = this.totalLoot.find((l) => l.name === itemName);
+      const existingItem = this.totalLoot.find((l) => l.item.name === itemName);
 
       if (existingItem) {
         existingItem.quantity += itemQuantity;
       } else {
         this.totalLoot.push({
-          name: itemName,
+          item: item,
           quantity: itemQuantity,
-          image: this.getItemImage(itemName),
+          image: this.getItemImage(item),
+          highAlch: (item as Item).highAlch || 0,
+          lowAlch: (item as Item).lowAlch || 0,
         });
       }
     }
 
-    // Sort by quantity descending
-    this.totalLoot.sort((a, b) => b.quantity - a.quantity);
+    this.sortTotalLootByHighAlch();
+  }
+
+  private sortTotalLootByHighAlch(): void {
+    this.totalLoot.sort((a, b) => {
+      const highAlchDifference = (b.highAlch ?? 0) - (a.highAlch ?? 0);
+
+      if (highAlchDifference !== 0) {
+        return highAlchDifference;
+      }
+
+      return a.item.name.localeCompare(b.item.name);
+    });
   }
 
   public resetLoot(): void {
@@ -115,11 +121,30 @@ export class CasketSimulatorComponent implements OnInit {
   public getCasketImage(
     casketType: 'beginner' | 'easy' | 'medium' | 'hard' | 'elite' | 'master',
   ): string {
-    return `assets/items/reward-casket-${casketType.toLowerCase()}.png`;
+
+    /**
+     * Reward casket (beginner)	23245
+     * Reward casket (easy)	20546
+     * Reward casket (elite)	20543
+     * Reward casket (hard)	20544
+     * Reward casket (master)	19836
+     * Reward casket (medium)	20545
+     */
+
+    const map = {
+      'beginner': '23245',
+      'easy': '20546',
+      'medium': '20545',
+      'hard': '20544',
+      'elite': '20543',
+      'master': '19836'
+    };
+
+    return `assets/items/${map[casketType]}.png`;
   }
 
-  public getItemImage(itemName: string): string {
-    const filename = itemName.toLowerCase().replace(/ /g, '-');
+  public getItemImage(lootItem: Item): string {
+    const filename = lootItem.id;
     return `assets/items/${filename}.png`;
   }
 
@@ -144,5 +169,17 @@ export class CasketSimulatorComponent implements OnInit {
 
   public getTotalItemsObtained(): number {
     return this.totalLoot.reduce((sum, item) => sum + item.quantity, 0);
+  }
+
+  public getTotalCasketsOpened(): number {
+    return this.openingHistory.length;
+  }
+
+  public getAverageItemsPerCasket(): number {
+    if (this.openingHistory.length === 0) {
+      return 0;
+    }
+
+    return this.getTotalItemsObtained() / this.openingHistory.length;
   }
 }

@@ -1,0 +1,79 @@
+<article class="master-card">
+  <header class="master-header">
+    <div>
+      <h2>{{ master.name }}</h2>
+      <p>{{ master.tier }} rumours</p>
+    </div>
+
+    <span class="level-badge">Level {{ master.minimumLevel }}</span>
+  </header>
+
+  <div class="assignment-control">
+    <label [for]="'rumour-' + master.name">Assigned rumour</label>
+    <select
+      [id]="'rumour-' + master.name"
+      [ngModel]="master.currentRumourId"
+      (ngModelChange)="onSelectedRumourChange($event)"
+    >
+      <option value="">No rumour assigned</option>
+      <option *ngFor="let rumour of rumours" [value]="rumour.id">
+        {{ rumour.creature }} - {{ rumour.method }}
+      </option>
+    </select>
+  </div>
+
+  <section class="rumour-panel" *ngIf="currentRumour; else noRumour">
+    <div class="rumour-title">
+      <h3>{{ currentRumour.creature }}</h3>
+      <span>{{ currentRumour.method }}</span>
+    </div>
+
+    <dl class="rumour-details">
+      <div>
+        <dt>Hunter</dt>
+        <dd>{{ currentRumour.requiredHunterLevel }}</dd>
+      </div>
+      <div>
+        <dt>Tier</dt>
+        <dd>{{ currentRumour.tier }}</dd>
+      </div>
+      <div>
+        <dt>Location</dt>
+        <dd>{{ getLocationList(currentRumour) }}</dd>
+      </div>
+      <div *ngIf="currentRumour.questRequirements.length">
+        <dt>Quest</dt>
+        <dd>{{ currentRumour.questRequirements.join(', ') }}</dd>
+      </div>
+    </dl>
+  </section>
+
+  <ng-template #noRumour>
+    <div class="empty-state">No active rumour for {{ master.name }}.</div>
+  </ng-template>
+
+  <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <section class="possible-rumours" *ngIf="possibleRumours.length">
+    <header>
+      <h3>Possible tasks</h3>
+      <span>{{ possibleRumours.length }}</span>
+    </header>
+
+    <ul>
+      <li *ngFor="let rumour of possibleRumours">
+        <div>
+          <strong>{{ rumour.creature }}</strong>
+          <span>{{ rumour.method }}</span>
+        </div>
+        <small>
+          {{ getRequirementList(rumour) }} - {{ getLocationList(rumour) }}
+        </small>
+      </li>
+    </ul>
+  </section>
+
+  <button type="button" class="rumour-button" (click)="getRumour()">
+    Get Rumour
+  </button>
+</article>

@@ -125,6 +125,14 @@ export class AchievementDiariesComponent implements OnInit {
     return this.getTaskCount(diary, 'easy') + this.getTaskCount(diary, 'medium') + this.getTaskCount(diary, 'hard') + this.getTaskCount(diary, 'elite');
   }
 
+  getAllTaskCount(): number {
+    return this.allDiaries.reduce((total, diary) => total + this.getTotalTasks(diary), 0);
+  }
+
+  trackByDiaryName(_index: number, diary: DiaryData): string {
+    return diary.name;
+  }
+
   getDiaryIconPath(diaryName: string): string {
     const icon = this.diaryIconMap[diaryName];
     return icon ? `assets/icons/diaries/${icon}` : this.tabIconPaths.quest;

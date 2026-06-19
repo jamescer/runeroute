@@ -1,0 +1,39 @@
+<section class="hunter-guild">
+  <header class="guild-header">
+    <div>
+      <h1>Hunter Guild Rumours</h1>
+      <p>Assign rumours across the Hunter Guild masters.</p>
+    </div>
+
+    <div class="player-controls">
+      <label>
+        Hunter level
+        <input
+          type="number"
+          min="1"
+          max="99"
+          [(ngModel)]="hunterLevel"
+          aria-label="Hunter level"
+        />
+      </label>
+
+      <label class="quest-toggle">
+        <input type="checkbox" [(ngModel)]="hasAtFirstLight" />
+        At First Light
+      </label>
+    </div>
+  </header>
+
+  <div class="masters-grid">
+    <app-hunter-guild-master
+      *ngFor="let master of masters"
+      [master]="master"
+      [rumours]="getEligibleRumours(master)"
+      [possibleRumours]="getPossibleRumours(master)"
+      [currentRumour]="getCurrentRumour(master)"
+      [errorMessage]="assignmentErrors[master.name]"
+      (selectedRumourChange)="assignSelectedRumour(master, $event)"
+      (getRumourClicked)="getRumour(master)"
+    ></app-hunter-guild-master>
+  </div>
+</section>

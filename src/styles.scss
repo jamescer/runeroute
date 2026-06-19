@@ -31,42 +31,32 @@ html,
 body {
   height: 100%;
   width: 100%;
-  background:
-    radial-gradient(
-      circle at 15% 0%,
-      rgba(136, 92, 41, 0.22) 0%,
-      transparent 42%
-    ),
-    linear-gradient(
-      160deg,
-      var(--osrs-bg-1),
-      var(--osrs-bg-2) 52%,
-      var(--osrs-bg-3)
-    );
-  background-attachment: fixed;
+  background: #110c08;
   color: var(--osrs-text-primary);
   font-family: var(--font-osrs);
   line-height: 1.6;
 }
+
 
 ::-webkit-scrollbar {
   width: 13px;
 }
 
 ::-webkit-scrollbar-track {
-  background: linear-gradient(180deg, #261911, #1c130d);
+  background: #1f1410;
   border-left: 1px solid #4a3018;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #caa152, #8d6629);
+  background: #8f6a2b;
   border-radius: 6px;
   border: 1px solid #5f411f;
 
   &:hover {
-    background: linear-gradient(180deg, #dfc078, #ad833b);
+    background: #b78e4f;
   }
 }
+
 
 ::selection {
   background: var(--osrs-gold);
@@ -132,7 +122,7 @@ select {
   border: 2px solid var(--osrs-border);
   border-radius: 6px;
   padding: 0.75rem;
-  background: linear-gradient(180deg, #2f1f13, #22160d);
+  background: #22170f;
   box-shadow: inset 0 1px 0 rgba(255, 220, 152, 0.08);
   transition:
     border-color 0.2s ease,

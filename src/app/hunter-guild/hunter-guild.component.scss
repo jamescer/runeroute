@@ -1,0 +1,82 @@
+.hunter-guild {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.guild-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(22, 16, 11, 0.94);
+  border: 2px solid var(--osrs-gold);
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
+
+  h1 {
+    margin: 0 0 0.25rem;
+    color: var(--osrs-gold);
+  }
+
+  p {
+    margin: 0;
+    color: var(--osrs-text-secondary);
+  }
+}
+
+.player-controls {
+  display: flex;
+  align-items: end;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  label {
+    display: grid;
+    gap: 0.35rem;
+    color: var(--osrs-text-secondary);
+    font-weight: 700;
+  }
+
+  input[type="number"] {
+    width: 7rem;
+  }
+}
+
+.quest-toggle {
+  min-height: 3.1rem;
+  display: flex !important;
+  grid-template-columns: none !important;
+  align-items: center;
+  gap: 0.55rem !important;
+  color: var(--osrs-text-primary) !important;
+
+  input {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--osrs-gold);
+  }
+}
+
+.masters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 720px) {
+  .hunter-guild {
+    padding: 1rem;
+  }
+
+  .guild-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .player-controls {
+    align-items: stretch;
+  }
+}

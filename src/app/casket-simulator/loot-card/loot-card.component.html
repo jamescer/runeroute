@@ -1,0 +1,11 @@
+<article class="loot-card">
+  <img
+    class="item-icon"
+    [src]="lootItem.image || getItemImage(lootItem)"
+    [alt]="lootItem.item.name"
+  />
+  <div class="loot-details">
+    <p class="item-name">{{ lootItem.item.name }}</p>
+    <p class="item-quantity">Quantity {{ lootItem.item.quantity }}</p>
+  </div>
+</article>

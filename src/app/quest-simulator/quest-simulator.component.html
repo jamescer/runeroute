@@ -1,170 +1,219 @@
 <div class="quest-simulator">
-  <!-- Header -->
   <header class="simulator-header">
-    <h1>
-      <img [src]="tabIconPaths.quest" alt="Quest tab icon" class="title-icon" />
-      Quest Simulator
-    </h1>
-    <p class="subtitle">Search and explore all OSRS quests</p>
+    <div>
+      <p class="eyebrow">Quest guide</p>
+      <h1>Quest Simulator</h1>
+      <p class="subtitle">
+        Search the full OSRS quest list, compare requirements, and review the
+        rewards and walkthrough steps in one focused view.
+      </p>
+    </div>
+
+    <div class="header-icon" aria-hidden="true">
+      <img [src]="tabIconPaths.quest" alt="" />
+    </div>
   </header>
 
-  <div class="quest-container">
-    <!-- Search Section -->
-    <div class="search-section">
-      <div class="search-box">
+  <section class="stats-strip" aria-label="Quest library overview">
+    <div class="stat-tile">
+      <span class="stat-label">All Quests</span>
+      <span class="stat-value">{{ allQuests.length }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Results</span>
+      <span class="stat-value">{{ filteredQuests.length }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Miniquests</span>
+      <span class="stat-value">{{ getMiniQuestCount() }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Selected QP</span>
+      <span class="stat-value">{{ selectedQuest?.questPoints || 0 }}</span>
+    </div>
+  </section>
+
+  <div class="quest-layout">
+    <aside class="quest-browser" aria-labelledby="quest-browser-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Browse</p>
+          <h2 id="quest-browser-title">Find a quest</h2>
+        </div>
+        <span class="result-pill">{{ filteredQuests.length }}</span>
+      </div>
+
+      <label class="search-box" for="quest-search">
+        <span class="search-label">Quest name</span>
         <input
-          type="text"
+          id="quest-search"
+          type="search"
           [(ngModel)]="searchTerm"
           (input)="searchQuests()"
-          placeholder="Search for a quest..."
-          class="search-input"
+          placeholder="Search quests..."
+          autocomplete="off"
         />
-        <img [src]="tabIconPaths.quest" alt="Search icon" class="search-icon" />
-      </div>
-      <p class="result-count">Found {{ filteredQuests.length }} quests</p>
-    </div>
+      </label>
 
-    <div class="content-wrapper">
-      <!-- Quest List (Left) -->
-      <div class="quest-list-section">
-        <div class="quest-list-header">
-          <h2>Quests</h2>
-          <span class="badge">{{ filteredQuests.length }}</span>
-        </div>
-
-        <div class="quest-list">
-          <div
-            *ngFor="let quest of filteredQuests"
-            (click)="selectQuest(quest)"
-            [class.active]="selectedQuest?.name === quest.name"
-            class="quest-item"
-            [title]="quest.name"
-          >
+      <div class="quest-list" role="list">
+        <button
+          *ngFor="let quest of filteredQuests; trackBy: trackByQuestName"
+          type="button"
+          (click)="selectQuest(quest)"
+          [class.active]="selectedQuest?.name === quest.name"
+          class="quest-item"
+          role="listitem"
+          [attr.aria-pressed]="selectedQuest?.name === quest.name"
+        >
+          <span class="quest-copy">
             <span class="quest-name">{{ quest.name }}</span>
-            <span *ngIf="isMiniQuest(quest)" class="mini-badge">Mini</span>
-          </div>
+            <span class="quest-meta">
+              {{ quest.questPoints || 0 }} QP
+              <ng-container *ngIf="quest.requirements?.length">
+                / {{ quest.requirements.length }} reqs
+              </ng-container>
+            </span>
+          </span>
+          <span *ngIf="isMiniQuest(quest)" class="mini-badge">Mini</span>
+        </button>
 
-          <div *ngIf="filteredQuests.length === 0" class="no-results">
-            <p>No quests found. Try a different search.</p>
-          </div>
+        <div *ngIf="filteredQuests.length === 0" class="empty-state compact">
+          <img [src]="tabIconPaths.quest" alt="" />
+          <p>No quests found</p>
+          <span>Try a shorter or different search term.</span>
         </div>
       </div>
+    </aside>
 
-      <!-- Quest Details (Right) -->
-      <div class="quest-details-section">
-        <div *ngIf="selectedQuest; else noSelection" class="quest-details">
-          <!-- Quest Title -->
-          <div class="details-header">
+    <main class="quest-details-panel" aria-live="polite">
+      <article *ngIf="selectedQuest; else noSelection" class="quest-details">
+        <div class="details-hero">
+          <div>
+            <p class="eyebrow">
+              {{ isMiniQuest(selectedQuest) ? 'Miniquest' : 'Quest' }}
+            </p>
             <h2>{{ selectedQuest.name }}</h2>
-            <span *ngIf="isMiniQuest(selectedQuest)" class="mini-badge-large"
-              >Mini Quest</span
-            >
-            <button (click)="clearSelection()" class="close-btn">✕</button>
+            <p *ngIf="selectedQuest.description" class="description">
+              {{ selectedQuest.description }}
+            </p>
           </div>
 
-          <!-- Quest Description -->
-          <div *ngIf="selectedQuest.description" class="detail-section">
-            <h3>Description</h3>
-            <p class="description">{{ selectedQuest.description }}</p>
-          </div>
-
-          <!-- Requirements -->
-          <div
-            *ngIf="
-              selectedQuest.requirements &&
-              selectedQuest.requirements.length > 0
-            "
-            class="detail-section"
+          <button
+            type="button"
+            (click)="clearSelection()"
+            class="icon-button"
+            aria-label="Clear selected quest"
+            title="Clear selected quest"
           >
-            <h3>Requirements</h3>
-            <div class="requirements-list">
-              <div
-                *ngFor="let req of selectedQuest.requirements"
-                class="requirement-item"
-              >
-                <ng-container *ngIf="req.type === RequirementType.Quest">
-                  <img
-                    src="assets/icons/ui/Quest_Points.png"
-                    [alt]="getRequirementLabel(req) + ' icon'"
-                  />
-                </ng-container>
-                <ng-container *ngIf="req.type === RequirementType.Level">
-                  <img
-                    src="assets/icons/tabs/Skills_Tab.png"
-                    [alt]="getRequirementLabel(req) + ' icon'"
-                  />
-                </ng-container>
-                <span>{{ getRequirementLabel(req) }}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Rewards -->
-          <div
-            *ngIf="getRewardsList() && getRewardsList().length > 0"
-            class="detail-section"
-          >
-            <h3>Rewards</h3>
-            <div class="rewards-list">
-              <div
-                *ngFor="let reward of getRewardsList()"
-                [class]="'reward-item ' + getRewardTypeClass(reward.type)"
-              >
-                <img
-                  class="reward-icon"
-                  [src]="reward.icon"
-                  [alt]="reward.label + ' icon'"
-                />
-                <div class="reward-content">
-                  <span class="reward-label">{{ reward.label }}</span>
-                  <span class="reward-value">{{ reward.value | number }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Steps -->
-          <div
-            *ngIf="selectedQuest.steps && selectedQuest.steps.length > 0"
-            class="detail-section"
-          >
-            <h3>Steps</h3>
-            <div class="steps-list">
-              <div
-                *ngFor="let step of selectedQuest.steps; let idx = index"
-                class="step-item"
-              >
-                <span class="step-number">{{ idx + 1 }}</span>
-                <p class="step-text">{{ step }}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Additional Info -->
-          <div *ngIf="selectedQuest.questPoints" class="detail-section">
-            <h3>Quest Points</h3>
-            <p class="info-text">{{ selectedQuest.questPoints }} points</p>
-          </div>
-
-          <!-- Raw Data (Debug) -->
-          <details class="raw-data">
-            <summary>View Raw Data</summary>
-            <pre>{{ selectedQuest | json }}</pre>
-          </details>
+            x
+          </button>
         </div>
 
-        <ng-template #noSelection>
-          <div class="no-selection">
-            <img
-              [src]="uiIconPaths.settings"
-              alt="No quest selected"
-              class="empty-icon"
-            />
-            <h3>Select a Quest</h3>
-            <p>Choose a quest from the list on the left to view its details.</p>
+        <div class="detail-summary" aria-label="Selected quest summary">
+          <div class="summary-tile">
+            <span>Quest Points</span>
+            <strong>{{ selectedQuest.questPoints || 0 }}</strong>
           </div>
-        </ng-template>
-      </div>
-    </div>
+          <div class="summary-tile">
+            <span>Requirements</span>
+            <strong>{{ selectedQuest.requirements.length || 0 }}</strong>
+          </div>
+          <div class="summary-tile">
+            <span>Rewards</span>
+            <strong>{{ getRewardsList().length }}</strong>
+          </div>
+          <div class="summary-tile">
+            <span>Steps</span>
+            <strong>{{ selectedQuest.steps.length || 0 }}</strong>
+          </div>
+        </div>
+
+        <section
+          *ngIf="selectedQuest.requirements?.length"
+          class="detail-section"
+          aria-labelledby="requirements-title"
+        >
+          <div class="section-heading">
+            <h3 id="requirements-title">Requirements</h3>
+            <span>{{ selectedQuest.requirements.length }}</span>
+          </div>
+
+          <div class="requirements-grid">
+            <div
+              *ngFor="let req of selectedQuest.requirements"
+              class="requirement-item"
+            >
+              <img
+                [src]="getRequirementIconPath(req)"
+                [alt]="getRequirementLabel(req) + ' icon'"
+              />
+              <span>{{ getRequirementLabel(req) }}</span>
+            </div>
+          </div>
+        </section>
+
+        <section
+          *ngIf="getRewardsList().length"
+          class="detail-section"
+          aria-labelledby="rewards-title"
+        >
+          <div class="section-heading">
+            <h3 id="rewards-title">Rewards</h3>
+            <span>{{ getRewardsList().length }}</span>
+          </div>
+
+          <div class="rewards-grid">
+            <div
+              *ngFor="let reward of getRewardsList()"
+              [class]="'reward-item ' + getRewardTypeClass(reward.type)"
+            >
+              <img
+                class="reward-icon"
+                [src]="reward.icon"
+                [alt]="reward.label + ' icon'"
+              />
+              <span class="reward-copy">
+                <span class="reward-label">{{ reward.label }}</span>
+                <span class="reward-value">{{ reward.value | number }}</span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section
+          *ngIf="selectedQuest.steps?.length"
+          class="detail-section"
+          aria-labelledby="steps-title"
+        >
+          <div class="section-heading">
+            <h3 id="steps-title">Walkthrough Steps</h3>
+            <span>{{ selectedQuest.steps.length }}</span>
+          </div>
+
+          <ol class="steps-list">
+            <li *ngFor="let step of selectedQuest.steps; let idx = index">
+              <span class="step-number">{{ idx + 1 }}</span>
+              <p>{{ step }}</p>
+            </li>
+          </ol>
+        </section>
+
+        <details class="raw-data">
+          <summary>Raw quest data</summary>
+          <pre>{{ selectedQuest | json }}</pre>
+        </details>
+      </article>
+
+      <ng-template #noSelection>
+        <div class="empty-state">
+          <img [src]="uiIconPaths.settings" alt="" />
+          <p>Select a quest</p>
+          <span>
+            Pick a quest from the browser to see requirements, rewards, and
+            steps.
+          </span>
+        </div>
+      </ng-template>
+    </main>
   </div>
 </div>

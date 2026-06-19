@@ -1,27 +1,98 @@
-<nav class="navbar">
-  <div class="navbar-container">
-    <div class="navbar-brand">
-      <a routerLink="/home" class="brand-text">OSRS Sim</a>
-    </div>
+<header class="site-header">
+  <nav class="navbar" aria-label="Primary navigation">
+    <a routerLink="/home" class="brand" aria-label="RuneRoute home">
+      <span class="brand-mark" aria-hidden="true">RR</span>
+      <span class="brand-title">RuneRoute</span>
+    </a>
+
     <ul class="nav-menu">
       <li class="nav-item">
-        <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Home</a>
+        <a
+          routerLink="/home"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item nav-dropdown" routerLinkActive="active-category">
+        <button class="nav-link nav-trigger" type="button" aria-haspopup="true">
+          Simulators
+          <span class="chevron" aria-hidden="true"></span>
+        </button>
+        <ul class="dropdown-menu" aria-label="Simulator pages">
+          <li>
+            <a
+              routerLink="/casket-simulator"
+              routerLinkActive="active"
+              class="dropdown-link"
+              >Casket Simulator</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/quest-simulator"
+              routerLinkActive="active"
+              class="dropdown-link"
+              >Quest Simulator</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/slayer-simulator"
+              routerLinkActive="active"
+              class="dropdown-link"
+              >Slayer Simulator</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item nav-dropdown" routerLinkActive="active-category">
+        <button class="nav-link nav-trigger" type="button" aria-haspopup="true">
+          Tools
+          <span class="chevron" aria-hidden="true"></span>
+        </button>
+        <ul class="dropdown-menu" aria-label="Tool pages">
+          <li>
+            <a
+              routerLink="/achievement-diaries"
+              routerLinkActive="active"
+              class="dropdown-link"
+              >Achievement Diaries</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/hunter-guild"
+              routerLinkActive="active"
+              class="dropdown-link"
+              >Hunter Guild</a
+            >
+          </li>
+       <li>
+            <a
+              routerLink="/league-builder"
+              routerLinkActive="active"
+              class="dropdown-link"
+              >League Builder</a
+            >
+          </li>
+
+          <li>
+            <a
+              routerLink="/leagues-planner"
+              routerLinkActive="active"
+              class="dropdown-link"
+              >Leagues Planner</a
+            >
+          </li>
+        </ul>
       </li>
       <li class="nav-item">
-        <a routerLink="/casket-simulator" routerLinkActive="active" class="nav-link">Casket Simulator</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/quest-simulator" routerLinkActive="active" class="nav-link">Quest Simulator</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/achievement-diaries" routerLinkActive="active" class="nav-link">Achievement Diaries</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/slayer-simulator" routerLinkActive="active" class="nav-link">Slayer Simulator</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/about" routerLinkActive="active" class="nav-link">About</a>
+        <a routerLink="/about" routerLinkActive="active" class="nav-link"
+          >About</a
+        >
       </li>
     </ul>
-  </div>
-</nav>
+  </nav>
+</header>

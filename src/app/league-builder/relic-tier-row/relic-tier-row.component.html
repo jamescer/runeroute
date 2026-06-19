@@ -1,0 +1,126 @@
+<div class="tier-row" [formGroup]="tierGroup">
+  <!-- Tier banner: vertical strip on the left, like the in-game tier header -->
+  <div class="tier-banner">
+    <span class="tier-number">{{ tierIndex + 1 }}</span>
+    <input
+      class="tier-name"
+      formControlName="name"
+      type="text"
+      placeholder="Tier name"
+    />
+    <label class="tier-threshold">
+      <span>Unlocks at</span>
+      <input formControlName="pointThreshold" type="number" min="0" />
+      <span>pts</span>
+    </label>
+    <button
+      type="button"
+      class="remove-tier"
+      (click)="tierRemoved.emit()"
+      aria-label="Remove tier"
+    >
+      ✕
+    </button>
+  </div>
+
+  <!-- Passives strip: spans the full width above the relic row -->
+  <div class="passives-strip">
+    @for (passive of passives.controls; track passive; let i = $index) {
+      <div class="passive-chip">
+        <input
+          formControlName="passive"
+          type="text"
+          placeholder="Passive (all players get this)"
+        />
+        <button
+          type="button"
+          (click)="passiveRemoved.emit(i)"
+          aria-label="Remove passive"
+        >
+          ✕
+        </button>
+      </div>
+    }
+    <button type="button" class="add-chip" (click)="passiveAdded.emit()">
+      + Passive
+    </button>
+  </div>
+
+  <!-- Relics: horizontal scroll row, card-per-relic, like the in-game relic picker -->
+  <div class="relics-track">
+    @for (
+      relicGroup of relics.controls;
+      track relicGroup;
+      let relicIndex = $index
+    ) {
+      <div class="relic-card" [formGroup]="relicGroup">
+        <button
+          type="button"
+          class="remove-relic"
+          (click)="relicRemoved.emit(relicIndex)"
+          aria-label="Remove relic"
+        >
+          ✕
+        </button>
+
+        <div class="relic-icon" aria-hidden="true">
+          @if (relicGroup.get("image")?.value) {
+            <img [src]="relicGroup.get('image')?.value" alt="" />
+          } @else {
+            <span class="icon-placeholder">?</span>
+          }
+        </div>
+
+        <input
+          class="relic-name"
+          formControlName="name"
+          type="text"
+          placeholder="Relic name"
+        />
+        <input
+          class="relic-image"
+          formControlName="image"
+          type="text"
+          placeholder="Image URL"
+        />
+        <textarea
+          class="relic-description"
+          formControlName="description"
+          rows="2"
+          placeholder="Description"
+        ></textarea>
+
+        <div class="relic-effects">
+          @for (
+            effect of effectsFor(relicIndex).controls;
+            track effect;
+            let effectIndex = $index
+          ) {
+            <div class="effect-line">
+              <input formControlName="effect" type="text" placeholder="Effect" />
+              <button
+                type="button"
+                (click)="effectRemoved.emit({ relicIndex, effectIndex })"
+                aria-label="Remove effect"
+              >
+                ✕
+              </button>
+            </div>
+          }
+          <button
+            type="button"
+            class="add-chip small"
+            (click)="effectAdded.emit(relicIndex)"
+          >
+            + Effect
+          </button>
+        </div>
+      </div>
+    }
+
+    <button type="button" class="add-relic-card" (click)="relicAdded.emit()">
+      <span class="plus">+</span>
+      <span>Add relic</span>
+    </button>
+  </div>
+</div>

@@ -7,14 +7,10 @@
     text-align: center;
     margin-bottom: 2rem;
     padding: 2rem;
-    background: linear-gradient(
-      135deg,
-      rgba(212, 175, 55, 0.1) 0%,
-      rgba(139, 115, 85, 0.1) 100%
-    );
+    background: rgba(48, 31, 17, 0.95);
     border: 2px solid var(--osrs-gold);
     border-radius: 4px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(212, 175, 55, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 
     h1 {
       margin: 0 0 0.5rem 0;
@@ -43,11 +39,11 @@
 }
 
 .masters-section {
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(10, 14, 39, 0.9) 100%);
+  background: rgba(22, 16, 11, 0.92);
   border: 2px solid var(--osrs-gold);
   border-radius: 4px;
   padding: 2rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(212, 175, 55, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
 
   h2 {
     margin: 0 0 0.5rem 0;
@@ -91,10 +87,10 @@
   }
 
   &.active {
-    background: linear-gradient(135deg, var(--osrs-gold-dark) 0%, var(--osrs-gold) 100%);
-    color: var(--osrs-dark);
+    background: rgba(202, 161, 82, 0.16);
+    color: var(--osrs-text-primary);
     border-color: var(--osrs-gold-light);
-    box-shadow: 0 0 16px rgba(212, 175, 55, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
@@ -111,11 +107,11 @@
 }
 
 .task-area {
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(10, 14, 39, 0.9) 100%);
+  background: rgba(22, 16, 11, 0.92);
   border: 2px solid var(--osrs-gold);
   border-radius: 4px;
   padding: 2rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(212, 175, 55, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
 
   h2 {
     margin: 0 0 1.5rem 0;
@@ -218,11 +214,11 @@
 
 .session-stats {
   grid-column: 1 / -1;
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(10, 14, 39, 0.9) 100%);
+  background: rgba(22, 16, 11, 0.92);
   border: 2px solid var(--osrs-gold);
   border-radius: 4px;
   padding: 2rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(212, 175, 55, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
 
   h2 {
     margin: 0 0 1.5rem 0;
@@ -271,11 +267,11 @@
 
 .task-history {
   grid-column: 1 / -1;
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(10, 14, 39, 0.9) 100%);
+  background: rgba(22, 16, 11, 0.92);
   border: 2px solid var(--osrs-gold);
   border-radius: 4px;
   padding: 2rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(212, 175, 55, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
 
   h2 {
     margin: 0 0 1rem 0;
@@ -318,7 +314,7 @@
 .btn {
   padding: 0.75rem 1rem;
   border: 2px solid var(--osrs-gold);
-  background: linear-gradient(135deg, var(--osrs-dark) 0%, var(--osrs-brown) 100%);
+  background: #2f1f14;
   color: var(--osrs-gold);
   border-radius: 4px;
   cursor: pointer;
@@ -326,15 +322,15 @@
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.38);
   font-size: 0.95rem;
 
   &-primary {
     &:hover {
-      background: linear-gradient(135deg, var(--osrs-gold-dark) 0%, var(--osrs-gold) 100%);
-      color: var(--osrs-dark);
+      background: #c9a34e;
+      color: #1d1208;
       transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 6px 12px rgba(212, 175, 55, 0.3);
     }
   }
 
