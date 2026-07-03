@@ -57,7 +57,7 @@
             <button (click)="completeTask()" class="btn btn-success">
               ✓ Complete & Claim
             </button>
-            <button (click)="skipTask()" class="btn btn-skip">
+            <button (click)="skipTask()" class="btn btn-outline-danger">
               Skip (-30 pts)
             </button>
           </div>
@@ -67,7 +67,7 @@
       <ng-template #noTask>
         <div class="no-task">
           <p class="no-task-text">No active task</p>
-          <button (click)="assignTask()" class="btn btn-primary btn-large">
+          <button (click)="assignTask()" class="btn btn-primary btn-lg">
             Get Assignment
           </button>
         </div>
@@ -95,7 +95,7 @@
           <span class="stat-value points">{{ pointsEarned }}</span>
         </div>
       </div>
-      <button (click)="resetSession()" class="btn btn-secondary">
+      <button (click)="resetSession()" class="btn btn-secondary w-100">
         Reset Session
       </button>
     </div>

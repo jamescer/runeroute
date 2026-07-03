@@ -74,7 +74,7 @@
   >
     <div class="card-header">
       <h2>Relic tiers</h2>
-      <button type="button" class="ghost-btn" (click)="addRelicTier()">
+      <button type="button" class="btn btn-outline-secondary btn-sm ghost-btn" (click)="addRelicTier()">
         + Add tier
       </button>
     </div>
@@ -124,7 +124,7 @@
   >
     <div class="card-header">
       <h2>Reward tiers</h2>
-      <button type="button" class="ghost-btn" (click)="addReward()">
+      <button type="button" class="btn btn-outline-secondary btn-sm ghost-btn" (click)="addReward()">
         + Add reward
       </button>
     </div>
@@ -138,7 +138,7 @@
         <legend>Reward {{ rewardIndex + 1 }}</legend>
         <button
           type="button"
-          class="remove-btn"
+          class="btn btn-sm btn-outline-danger remove-btn"
           (click)="removeReward(rewardIndex)"
         >
           Remove
@@ -164,7 +164,7 @@
     }
   </section>
 
-  <button type="submit" class="submit-btn" [disabled]="form.invalid">
+  <button type="submit" class="btn btn-primary submit-btn" [disabled]="form.invalid">
     Create league
   </button>
 </form>

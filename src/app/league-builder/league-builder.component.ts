@@ -10,7 +10,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { RelicTierRowComponent } from './relic-tier-row/relic-tier-row.component';
 import { PactTreeEditorComponent } from './pact-tree/pact-tree-editor.component';
-import type { CustomLeague, Relic, RelicTier, RewardTier } from 'osrs-tools';
+import type { League, Relic, RelicTier, RewardTier } from 'osrs-tools';
 
 export type LeagueBuilderTab = 'relics' | 'pacts' | 'rewards';
 
@@ -24,8 +24,8 @@ export type LeagueBuilderTab = 'relics' | 'pacts' | 'rewards';
 export class LeagueBuilderComponent {
   private readonly fb = inject(FormBuilder);
 
-  /** Emits a fully-typed CustomLeague once the form is valid and submitted */
-  @Output() leagueCreated = new EventEmitter<CustomLeague>();
+  /** Emits a fully-typed League once the form is valid and submitted */
+  @Output() leagueCreated = new EventEmitter<League>();
 
   @ViewChild(PactTreeEditorComponent) pactTreeEditor?: PactTreeEditorComponent;
 
@@ -156,7 +156,7 @@ export class LeagueBuilderComponent {
 
     const raw = this.form.getRawValue();
 
-    const league: CustomLeague = {
+    const league: League = {
       name: raw.name,
       startDate: new Date(raw.startDate),
       endDate: new Date(raw.endDate),
@@ -177,9 +177,9 @@ export class LeagueBuilderComponent {
               description: relic.description,
               effects: relic.effects,
               image: relic.image || undefined,
-            }),
+            })
           ),
-        }),
+        })
       ),
       rewards: raw.rewards.map(
         (reward: any): RewardTier => ({
@@ -188,8 +188,11 @@ export class LeagueBuilderComponent {
           description: reward.description,
           threshold: reward.threshold,
           image: reward.image || undefined,
-        }),
+        })
       ),
+      id: '',
+      number: 0,
+      theme: ''
     };
 
     this.leagueCreated.emit(league);

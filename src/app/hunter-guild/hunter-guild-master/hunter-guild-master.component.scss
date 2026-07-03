@@ -183,20 +183,4 @@
 
 .rumour-button {
   margin-top: auto;
-  padding: 0.75rem 1rem;
-  color: #1d1308;
-  background: var(--osrs-gold);
-  border: 2px solid var(--osrs-gold-light);
-  border-radius: 4px;
-  font-weight: 700;
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-
-  &:hover {
-    background: var(--osrs-gold-light);
-    box-shadow: 0 0 12px rgba(201, 163, 78, 0.35);
-    transform: translateY(-1px);
-  }
 }

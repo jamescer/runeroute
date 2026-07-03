@@ -1,0 +1,199 @@
+<div class="ca-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Achievement guide</p>
+      <h1>Combat Achievements</h1>
+      <p class="subtitle">
+        Browse every Combat Achievements task, track what you've completed,
+        and see how close you are to your next reward tier.
+      </p>
+    </div>
+
+    <div class="header-icon" aria-hidden="true">
+      <img [src]="tabIconPaths.combat" alt="" />
+    </div>
+  </header>
+
+  <section class="stats-strip" aria-label="Combat Achievements overview">
+    <div class="stat-tile">
+      <span class="stat-label">Tasks</span>
+      <span class="stat-value">{{ totalTasks }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Points Available</span>
+      <span class="stat-value">{{ totalPointsAvailable }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Completed</span>
+      <span class="stat-value">{{ completedCount }}</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Points Earned</span>
+      <span class="stat-value">{{ progress.totalPoints }}</span>
+    </div>
+  </section>
+
+  <div class="ca-layout">
+    <aside class="task-browser" aria-labelledby="task-browser-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Browse</p>
+          <h2 id="task-browser-title">Find a task</h2>
+        </div>
+        <span class="result-pill">{{ filteredTasks.length }}</span>
+      </div>
+
+      <label class="search-box" for="task-search">
+        <span class="search-label">Task, monster, or description</span>
+        <input
+          id="task-search"
+          type="search"
+          [(ngModel)]="searchTerm"
+          (input)="applyFilters()"
+          placeholder="Search tasks..."
+          autocomplete="off"
+        />
+      </label>
+
+      <div class="tier-tabs" role="tablist" aria-label="Combat Achievement tiers">
+        <button
+          *ngFor="let tier of tierFilters"
+          type="button"
+          class="tier-tab"
+          [ngClass]="tierClass(tier)"
+          [class.active]="selectedTier === tier"
+          (click)="selectTier(tier)"
+          [attr.aria-selected]="selectedTier === tier"
+          role="tab"
+        >
+          {{ tier }}
+        </button>
+      </div>
+
+      <label class="monster-filter" for="monster-select">
+        <span class="search-label">Monster / activity</span>
+        <select
+          id="monster-select"
+          [ngModel]="selectedMonster"
+          (ngModelChange)="selectMonster($event)"
+        >
+          <option value="">All monsters</option>
+          <option *ngFor="let monster of monsters" [value]="monster">{{ monster }}</option>
+        </select>
+      </label>
+
+      <div class="browser-actions">
+        <button type="button" class="btn" (click)="completeAllVisible()">
+          Mark visible complete
+        </button>
+        <button type="button" class="btn btn-danger" (click)="clearProgress()">
+          Clear progress
+        </button>
+      </div>
+
+      <div class="task-list" role="list">
+        <label
+          *ngFor="let task of filteredTasks; trackBy: trackByTaskId"
+          class="task-list-item"
+          [class.completed]="isCompleted(task)"
+        >
+          <input
+            type="checkbox"
+            [checked]="isCompleted(task)"
+            (change)="toggleTask(task)"
+          />
+
+          <span class="task-copy">
+            <span class="task-name-row">
+              <span class="task-name">{{ task.name }}</span>
+              <span class="tier-badge" [ngClass]="tierClass(task.tier)">{{ task.tier }}</span>
+            </span>
+            <span class="task-meta">
+              {{ task.monster }} &middot; {{ task.type }} &middot; {{ task.points }}
+              {{ task.points === 1 ? 'point' : 'points' }}
+            </span>
+            <span class="task-description">{{ task.description }}</span>
+          </span>
+        </label>
+
+        <div *ngIf="filteredTasks.length === 0" class="empty-state compact">
+          <img [src]="tabIconPaths.combat" alt="" />
+          <p>No tasks found</p>
+          <span>Try a different search term or filter.</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="progress-panel" aria-labelledby="progress-title">
+      <article class="progress-details">
+        <div class="details-hero">
+          <div>
+            <p class="eyebrow">Your progress</p>
+            <h2 id="progress-title">{{ progress.totalPoints }} / {{ totalPointsAvailable }} points</h2>
+            <p class="description">
+              Check off tasks as you complete them to track your Combat Achievement
+              points and see which reward tiers you've unlocked.
+            </p>
+          </div>
+        </div>
+
+        <div class="overall-bar-wrap">
+          <div class="overall-bar">
+            <div class="overall-bar-fill" [style.width.%]="overallPercent"></div>
+          </div>
+          <span class="overall-bar-label">{{ overallPercent }}% complete</span>
+        </div>
+
+        <section class="detail-section tier-progress-section" aria-labelledby="tier-progress-title">
+          <div class="section-heading">
+            <h3 id="tier-progress-title">Progress by tier</h3>
+          </div>
+
+          <div class="tier-progress-grid">
+            <div class="tier-progress-card" *ngFor="let tier of tiers" [ngClass]="tierClass(tier)">
+              <div class="tier-progress-heading">
+                <span class="tier-badge" [ngClass]="tierClass(tier)">{{ tier }}</span>
+                <span>
+                  {{ progress[tier].completed.length }} / {{ progress[tier].completed.length + progress[tier].remaining.length }}
+                </span>
+              </div>
+              <div class="tier-bar">
+                <div class="tier-bar-fill" [style.width.%]="tierProgressPercent(tier)"></div>
+              </div>
+              <span class="tier-points">
+                {{ progress[tier].pointsEarned }} / {{ progress[tier].pointsAvailable }} pts
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section class="detail-section" aria-labelledby="reward-tiers-title">
+          <div class="section-heading">
+            <h3 id="reward-tiers-title">Reward tiers</h3>
+            <span *ngIf="progress.nextRewardTier">
+              {{ pointsUntilNextTier() }} to next
+            </span>
+          </div>
+
+          <ol class="reward-tier-list">
+            <li
+              *ngFor="let rewardTier of rewardTiers; trackBy: trackByRewardTier"
+              class="reward-tier-item"
+              [ngClass]="tierClass(rewardTier.tier)"
+              [class.unlocked]="isRewardTierUnlocked(rewardTier)"
+            >
+              <div class="reward-tier-heading">
+                <span class="tier-badge" [ngClass]="tierClass(rewardTier.tier)">{{ rewardTier.tier }}</span>
+                <strong>{{ rewardTier.pointsRequired }} points</strong>
+                <span class="reward-status">{{ isRewardTierUnlocked(rewardTier) ? 'Unlocked' : 'Locked' }}</span>
+              </div>
+              <ul class="reward-list">
+                <li *ngFor="let reward of rewardTier.rewards">{{ reward }}</li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+      </article>
+    </main>
+  </div>
+</div>

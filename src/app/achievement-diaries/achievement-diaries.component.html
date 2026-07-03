@@ -33,6 +33,57 @@
         {{ selectedDiary ? getTaskCount(selectedDiary, selectedLevel) : 0 }}
       </span>
     </div>
+    <div class="stat-tile" *ngIf="account">
+      <span class="stat-label">Ready Now</span>
+      <span class="stat-value">
+        {{ selectedDiary ? getReadyCount(selectedDiary, selectedLevel) : 0 }}
+      </span>
+    </div>
+  </section>
+
+  <section class="progress-checker">
+    <button
+      type="button"
+      class="progress-checker-toggle"
+      (click)="toggleProgressChecker(!progressCheckerOpen)"
+      [attr.aria-expanded]="progressCheckerOpen"
+    >
+      <span>Check your progress</span>
+      <span class="summary-hint">Enter your stats to see which diary tasks you can complete today</span>
+      <span class="chevron" [class.open]="progressCheckerOpen" aria-hidden="true"></span>
+    </button>
+
+    <div class="progress-checker-body" *ngIf="progressCheckerOpen">
+      <div class="qp-field">
+        <label for="quest-points">Quest Points</label>
+        <input
+          id="quest-points"
+          type="number"
+          min="0"
+          max="300"
+          [(ngModel)]="questPoints"
+          (ngModelChange)="refreshAccount()"
+        />
+
+        <div class="combat-readout" *ngIf="account">
+          Combat Level: <strong>{{ account.combatLevel }}</strong>
+        </div>
+      </div>
+
+      <div class="skill-grid">
+        <label class="skill-field" *ngFor="let skill of skillList">
+          <img [src]="getSkillIconPath(skill)" [alt]="skill" />
+          <span [title]="skill">{{ skill }}</span>
+          <input
+            type="number"
+            min="1"
+            max="99"
+            [(ngModel)]="skillLevels[skill]"
+            (ngModelChange)="refreshAccount()"
+          />
+        </label>
+      </div>
+    </div>
   </section>
 
   <div class="diaries-layout">
@@ -126,7 +177,10 @@
               [alt]="formatLevel(level) + ' icon'"
               class="level-icon"
             />
-            <span>{{ formatLevel(level) }}</span>
+            <span class="level-tab-label">
+              {{ formatLevel(level) }}
+              <em *ngIf="account" class="ready-badge">{{ getReadyCount(diary, level) }} ready</em>
+            </span>
             <strong>{{ getTaskCount(diary, level) }}</strong>
           </button>
         </div>
@@ -186,10 +240,19 @@
             <li *ngFor="let task of levelData.tasks; let idx = index">
               <span class="task-number">{{ idx + 1 }}</span>
               <span class="task-copy">
-                <span class="task-description">{{ task.description }}</span>
+                <span class="task-description-row">
+                  <span class="task-description">{{ task.description }}</span>
+                  <span
+                    *ngIf="account"
+                    class="task-status"
+                    [class.ready]="isTaskReady(task)"
+                  >
+                    {{ isTaskReady(task) ? 'Ready' : 'Not yet' }}
+                  </span>
+                </span>
                 <span *ngIf="task.notes" class="task-notes">{{ task.notes }}</span>
-                <span *ngIf="task.requirements?.length" class="task-req-count">
-                  {{ task.requirements?.length }} requirements
+                <span *ngIf="task.requirements.length" class="task-req-count">
+                  {{ task.requirements.length }} requirements
                 </span>
               </span>
             </li>

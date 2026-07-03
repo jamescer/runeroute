@@ -1,9 +1,9 @@
 .footer {
-  background: #20140d;
-  border-top: 3px solid #805527;
+  background: var(--osrs-bg-2);
+  border-top: 3px solid var(--osrs-gold-dark);
   color: var(--osrs-text-primary);
   margin-top: 3rem;
-  box-shadow: inset 0 1px 0 rgba(255, 219, 154, 0.1), 0 -6px 14px rgba(0, 0, 0, 0.32);
+  box-shadow: 0 -6px 14px rgba(0, 0, 0, 0.32);
 }
 
 
@@ -21,17 +21,12 @@
     color: var(--osrs-gold-light);
     margin: 0 0 1rem 0;
     font-size: 1.35rem;
-    letter-spacing: 0.6px;
-    font-family: var(--font-osrs-title);
-    text-shadow: 1px 1px 0 rgba(20, 12, 8, 0.7);
   }
 
   h4 {
     color: var(--osrs-gold-light);
     margin: 0 0 1rem 0;
     font-size: 1.1rem;
-    letter-spacing: 0.4px;
-    text-shadow: 1px 1px 0 rgba(20, 12, 8, 0.7);
   }
 
   p {
@@ -80,7 +75,7 @@
 
 .footer-bottom {
   background: rgba(0, 0, 0, 0.3);
-  border-top: 1px solid #6b4721;
+  border-top: 1px solid var(--osrs-border);
   padding: 1.5rem 2rem;
   text-align: center;
 
@@ -88,6 +83,5 @@
     margin: 0;
     color: var(--osrs-text-secondary);
     font-size: 0.9rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
   }
 }

@@ -4,7 +4,6 @@
   gap: 1.5rem;
   max-width: 720px;
   margin: 0 auto;
-  font-family: system-ui, sans-serif;
 }
 
 .card {
@@ -95,21 +94,14 @@ textarea {
   }
 }
 
-button {
+button:not(.btn) {
   cursor: pointer;
   font-size: 0.85rem;
 }
 
 .ghost-btn {
-  background: transparent;
-  border: 1px solid #6b5d3f;
-  color: #d8c89a;
-  border-radius: 4px;
-  padding: 0.35rem 0.7rem;
-
   &.small {
     font-size: 0.75rem;
-    padding: 0.25rem 0.55rem;
   }
 }
 
@@ -117,16 +109,6 @@ button {
   position: absolute;
   top: 0.6rem;
   right: 0.6rem;
-  background: transparent;
-  border: none;
-  color: #b06a5a;
-  font-size: 0.75rem;
-}
-
-.icon-btn {
-  background: transparent;
-  border: none;
-  color: #b06a5a;
 }
 
 .tab-bar {
@@ -183,16 +165,3 @@ button {
   padding: 1.5rem 0;
 }
 
-.submit-btn {
-  background: #6b5d3f;
-  color: #fdf8ee;
-  border: none;
-  border-radius: 6px;
-  padding: 0.7rem;
-  font-weight: 600;
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}

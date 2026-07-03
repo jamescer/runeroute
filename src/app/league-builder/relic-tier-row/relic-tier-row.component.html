@@ -15,12 +15,10 @@
     </label>
     <button
       type="button"
-      class="remove-tier"
+      class="btn-close btn-close-white remove-tier"
       (click)="tierRemoved.emit()"
       aria-label="Remove tier"
-    >
-      ✕
-    </button>
+    ></button>
   </div>
 
   <!-- Passives strip: spans the full width above the relic row -->
@@ -34,14 +32,13 @@
         />
         <button
           type="button"
+          class="btn-close btn-close-white"
           (click)="passiveRemoved.emit(i)"
           aria-label="Remove passive"
-        >
-          ✕
-        </button>
+        ></button>
       </div>
     }
-    <button type="button" class="add-chip" (click)="passiveAdded.emit()">
+    <button type="button" class="btn btn-outline-secondary btn-sm add-chip" (click)="passiveAdded.emit()">
       + Passive
     </button>
   </div>
@@ -56,12 +53,10 @@
       <div class="relic-card" [formGroup]="relicGroup">
         <button
           type="button"
-          class="remove-relic"
+          class="btn-close btn-close-white remove-relic"
           (click)="relicRemoved.emit(relicIndex)"
           aria-label="Remove relic"
-        >
-          ✕
-        </button>
+        ></button>
 
         <div class="relic-icon" aria-hidden="true">
           @if (relicGroup.get("image")?.value) {
@@ -100,16 +95,15 @@
               <input formControlName="effect" type="text" placeholder="Effect" />
               <button
                 type="button"
+                class="btn-close btn-close-white"
                 (click)="effectRemoved.emit({ relicIndex, effectIndex })"
                 aria-label="Remove effect"
-              >
-                ✕
-              </button>
+              ></button>
             </div>
           }
           <button
             type="button"
-            class="add-chip small"
+            class="btn btn-outline-secondary btn-sm add-chip small"
             (click)="effectAdded.emit(relicIndex)"
           >
             + Effect
@@ -118,7 +112,7 @@
       </div>
     }
 
-    <button type="button" class="add-relic-card" (click)="relicAdded.emit()">
+    <button type="button" class="btn btn-outline-secondary d-flex align-items-center justify-content-center add-relic-card" (click)="relicAdded.emit()">
       <span class="plus">+</span>
       <span>Add relic</span>
     </button>

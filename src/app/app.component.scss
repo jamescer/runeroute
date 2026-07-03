@@ -4,10 +4,8 @@
   margin: 0 auto;
   width: 100%;
   padding: 2rem;
-  background: rgba(15, 10, 7, 0.92);
-  border: 1px solid rgba(138, 93, 44, 0.4);
+  background: var(--osrs-bg-2);
+  border: 1px solid var(--osrs-border);
   border-radius: 8px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.26);
 }
-
-

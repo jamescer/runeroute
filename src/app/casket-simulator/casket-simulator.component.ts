@@ -5,6 +5,7 @@ import { CasketCardComponent } from './casket-card/casket-card.component';
 import { LootCardComponent } from './loot-card/loot-card.component';
 import { ClueScrollHelper, Item } from 'osrs-tools';
 import { LootItem, OpeningRecord } from './casket-simulator.models';
+import { CLUE_ITEM_ID_OVERRIDES } from './clue-item-id-overrides';
 
 @Component({
   selector: 'app-casket-simulator',
@@ -144,7 +145,7 @@ export class CasketSimulatorComponent implements OnInit {
   }
 
   public getItemImage(lootItem: Item): string {
-    const filename = lootItem.id;
+    const filename = CLUE_ITEM_ID_OVERRIDES[lootItem.name.toLowerCase()] ?? lootItem.id;
     return `assets/items/${filename}.png`;
   }
 

@@ -10,8 +10,8 @@ p {
   text-align: center;
   font-size: 1.1rem;
   color: var(--osrs-text-primary);
-  background: #2d1f15;
-  border: 2px solid #8b5f30;
+  background: var(--osrs-panel);
+  border: 2px solid var(--osrs-border);
   border-radius: 8px;
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.32);
 }

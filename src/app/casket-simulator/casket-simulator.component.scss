@@ -25,7 +25,7 @@
   gap: 1.25rem;
   align-items: center;
   padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(84, 54, 31, 0.84), rgba(20, 14, 10, 0.92));
+  background: var(--osrs-panel-soft);
 }
 
 h1,
@@ -125,7 +125,7 @@ img {
   gap: 0.55rem;
 }
 
-button,
+button:not(.btn),
 .quantity-input {
   min-height: 42px;
   border: 1px solid rgba(194, 154, 89, 0.26);
@@ -135,7 +135,7 @@ button,
   font: inherit;
 }
 
-button {
+button:not(.btn) {
   cursor: pointer;
   font-weight: 800;
 }
@@ -161,7 +161,7 @@ button {
   white-space: nowrap;
 }
 
-button:hover,
+button:not(.btn):hover,
 .casket-button.active {
   border-color: var(--osrs-gold-light);
 }
@@ -204,11 +204,6 @@ button:hover,
 .selected-summary img {
   width: 42px;
   height: 42px;
-}
-
-.btn-primary {
-  background: var(--osrs-gold-light);
-  color: #21160d;
 }
 
 .results-panel {

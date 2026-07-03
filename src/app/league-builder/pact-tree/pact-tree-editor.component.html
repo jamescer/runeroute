@@ -23,7 +23,7 @@
         (ngModelChange)="maxResets.set($event)"
       />
     </label>
-    <button type="button" (click)="addPact()">+ Add pact</button>
+    <button type="button" class="btn btn-primary btn-sm" (click)="addPact()">+ Add pact</button>
   </header>
 
   <div class="editor-body">
@@ -138,12 +138,12 @@
               (ngModelChange)="updateEffect($index, $event)"
               placeholder="Effect"
             />
-            <button type="button" (click)="removeEffect($index)">✕</button>
+            <button type="button" class="btn-close btn-close-white" (click)="removeEffect($index)"></button>
           </div>
         }
         <button
           type="button"
-          class="ghost-btn small"
+          class="btn btn-outline-secondary btn-sm ghost-btn small"
           (click)="addEffectToSelected()"
         >
           + Add effect
@@ -158,7 +158,7 @@
         </p>
       </div>
 
-      <button type="button" class="danger-btn" (click)="removeSelectedPact()">
+      <button type="button" class="btn btn-outline-danger w-100 danger-btn" (click)="removeSelectedPact()">
         Delete this pact
       </button>
     </aside>

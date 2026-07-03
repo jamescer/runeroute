@@ -1,24 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cardo:wght@400;700&display=swap");
-
 :root {
-  --osrs-gold: #c9a34e;
-  --osrs-gold-light: #e2c478;
-  --osrs-gold-dark: #8f6a2b;
-  --osrs-bg-1: #17100b;
-  --osrs-bg-2: #26170f;
-  --osrs-bg-3: #3a2517;
-  --osrs-panel: #2e1d12;
-  --osrs-panel-soft: #3a2819;
-  --osrs-wood: #5a3a24;
-  --osrs-stone: #7f6a53;
-  --osrs-text-primary: #eadfc8;
-  --osrs-text-secondary: #b7a487;
-  --osrs-border: #6e4b26;
-  --osrs-success: #73a84b;
-  --osrs-danger: #b4554d;
+  --osrs-gold: #8b6a3f;
+  --osrs-gold-light: #c2a877;
+  --osrs-gold-dark: #5c4526;
+  --osrs-bg-1: #16120e;
+  --osrs-bg-2: #221b14;
+  --osrs-bg-3: #322619;
+  --osrs-panel: #2b2015;
+  --osrs-panel-soft: #362a1c;
+  --osrs-wood: #4f3c26;
+  --osrs-stone: #756a5a;
+  --osrs-text-primary: #e8e2d4;
+  --osrs-text-secondary: #b3a891;
+  --osrs-border: #5c4a34;
+  --osrs-success: #4b7a3d;
+  --osrs-danger: #a8453d;
   --osrs-shadow: rgba(0, 0, 0, 0.68);
-  --font-osrs: "RuneScape UF", "Cardo", "Georgia", serif;
-  --font-osrs-title: "RuneScape UF", "Cinzel", "Cardo", serif;
 }
 
 * {
@@ -31,88 +27,33 @@ html,
 body {
   height: 100%;
   width: 100%;
-  background: #110c08;
+  background: var(--osrs-bg-1);
   color: var(--osrs-text-primary);
-  font-family: var(--font-osrs);
-  line-height: 1.6;
 }
-
 
 ::-webkit-scrollbar {
   width: 13px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1f1410;
-  border-left: 1px solid #4a3018;
+  background: var(--osrs-bg-2);
+  border-left: 1px solid var(--osrs-border);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8f6a2b;
+  background: var(--osrs-gold);
   border-radius: 6px;
-  border: 1px solid #5f411f;
+  border: 1px solid var(--osrs-gold-dark);
 
   &:hover {
-    background: #b78e4f;
+    background: var(--osrs-gold-light);
   }
 }
-
 
 ::selection {
   background: var(--osrs-gold);
   color: #1d1308;
   text-shadow: none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--osrs-gold-light);
-  font-family: var(--font-osrs-title);
-  font-weight: 500;
-  letter-spacing: 0.35px;
-  text-shadow: 1px 1px 0 rgba(20, 12, 8, 0.55);
-}
-
-h1 {
-  letter-spacing: 0.7px;
-  font-size: 2.55rem;
-}
-
-h2 {
-  font-size: 1.95rem;
-}
-
-h3 {
-  font-size: 1.45rem;
-}
-
-p {
-  color: var(--osrs-text-primary);
-}
-
-a {
-  color: var(--osrs-gold);
-  text-decoration: none;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: var(--osrs-gold-light);
-  }
-}
-
-button,
-input,
-textarea,
-select {
-  font-family: var(--font-osrs);
-}
-
-button {
-  cursor: pointer;
 }
 
 input,
@@ -122,8 +63,7 @@ select {
   border: 2px solid var(--osrs-border);
   border-radius: 6px;
   padding: 0.75rem;
-  background: #22170f;
-  box-shadow: inset 0 1px 0 rgba(255, 220, 152, 0.08);
+  background: var(--osrs-bg-2);
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
@@ -135,7 +75,7 @@ select {
   &:focus {
     outline: none;
     border-color: var(--osrs-gold);
-    box-shadow: 0 0 0 2px rgba(201, 163, 78, 0.25);
+    box-shadow: 0 0 0 2px rgba(139, 106, 63, 0.35);
   }
 }
 

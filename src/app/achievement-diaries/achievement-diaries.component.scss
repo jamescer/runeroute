@@ -25,11 +25,7 @@
   gap: 1.25rem;
   align-items: center;
   padding: 1.5rem;
-  background: linear-gradient(
-    135deg,
-    rgba(64, 48, 35, 0.88),
-    rgba(18, 14, 11, 0.94)
-  );
+  background: var(--osrs-panel-soft);
 }
 
 h1,
@@ -99,7 +95,7 @@ img {
 
 .stats-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1px;
   margin: 1rem 0;
   overflow: hidden;
@@ -115,6 +111,121 @@ img {
   color: var(--osrs-gold-light);
   font-size: 1.65rem;
   line-height: 1;
+}
+
+.progress-checker {
+  margin: 1rem 0;
+  border: 1px solid rgba(194, 154, 89, 0.28);
+  border-radius: 8px;
+  background: rgba(21, 16, 12, 0.84);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+}
+
+.progress-checker-toggle {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: var(--osrs-panel-soft);
+  color: var(--osrs-text-primary);
+  font: inherit;
+  text-align: left;
+}
+
+.progress-checker-toggle span:first-child {
+  color: var(--osrs-gold-light);
+  font-weight: 800;
+}
+
+.summary-hint {
+  color: var(--osrs-text-secondary);
+  font-size: 0.85rem;
+}
+
+.chevron {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--osrs-gold-light);
+  border-bottom: 2px solid var(--osrs-gold-light);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.chevron.open {
+  transform: rotate(225deg);
+}
+
+.progress-checker-body {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border-top: 1px solid rgba(194, 154, 89, 0.18);
+}
+
+.qp-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.qp-field label {
+  color: var(--osrs-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.qp-field input {
+  width: 120px;
+}
+
+.combat-readout {
+  color: var(--osrs-text-secondary);
+  font-size: 0.9rem;
+}
+
+.combat-readout strong {
+  color: var(--osrs-gold-light);
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0.6rem;
+}
+
+.skill-field {
+  display: grid;
+  grid-template-columns: 20px 1fr 50px;
+  gap: 0.45rem;
+  align-items: center;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid rgba(194, 154, 89, 0.16);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.skill-field img {
+  width: 20px;
+  height: 20px;
+}
+
+.skill-field span {
+  overflow: hidden;
+  color: var(--osrs-text-secondary);
+  font-size: 0.78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skill-field input {
+  width: 100%;
+  min-height: 0;
+  padding: 0.3rem;
+  text-align: center;
 }
 
 .diaries-layout {
@@ -301,7 +412,10 @@ img {
   height: 22px;
 }
 
-.level-tab span {
+.level-tab-label {
+  display: grid;
+  min-width: 0;
+  gap: 0.2rem;
   overflow: hidden;
   text-align: left;
   text-overflow: ellipsis;
@@ -314,6 +428,16 @@ img {
   background: rgba(0, 0, 0, 0.22);
   color: var(--osrs-gold-light);
   text-align: center;
+}
+
+.ready-badge {
+  overflow: hidden;
+  color: #8fc9b0;
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .detail-summary {
@@ -376,6 +500,32 @@ img {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.task-description-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.task-status {
+  flex-shrink: 0;
+  padding: 0.12rem 0.5rem;
+  border: 1px solid rgba(168, 69, 61, 0.5);
+  border-radius: 999px;
+  color: #e0a49f;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.task-status.ready {
+  border-color: rgba(75, 122, 61, 0.6);
+  color: #a9d6a0;
 }
 
 .task-list li {

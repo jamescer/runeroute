@@ -13,7 +13,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.6rem 0.9rem;
-  background: linear-gradient(90deg, #2c2418, #1c1a17 70%);
+  background: #211e1a;
   border-bottom: 1px solid #3a3530;
 
   .tier-number {
@@ -61,12 +61,6 @@
     }
   }
 
-  .remove-tier {
-    background: transparent;
-    border: none;
-    color: #b06a5a;
-    font-size: 0.85rem;
-  }
 }
 
 .passives-strip {
@@ -93,26 +87,13 @@
     font-size: 0.8rem;
     width: 14rem;
   }
-
-  button {
-    background: transparent;
-    border: none;
-    color: #8a8071;
-    font-size: 0.7rem;
-  }
 }
 
 .add-chip {
-  background: transparent;
-  border: 1px dashed #6b5d3f;
   border-radius: 999px;
-  color: #d8c89a;
-  padding: 0.25rem 0.8rem;
-  font-size: 0.78rem;
 
   &.small {
     font-size: 0.7rem;
-    padding: 0.15rem 0.6rem;
   }
 }
 
@@ -146,10 +127,6 @@
   position: absolute;
   top: 0.4rem;
   right: 0.4rem;
-  background: transparent;
-  border: none;
-  color: #b06a5a;
-  font-size: 0.7rem;
 }
 
 .relic-icon {
@@ -221,26 +198,12 @@
     font-size: 0.75rem;
     padding: 0.25rem 0.4rem;
   }
-
-  button {
-    background: transparent;
-    border: none;
-    color: #8a8071;
-    font-size: 0.7rem;
-  }
 }
 
 .add-relic-card {
   flex: 0 0 7rem;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 0.3rem;
-  background: transparent;
-  border: 1px dashed #6b5d3f;
-  border-radius: 8px;
-  color: #d8c89a;
   font-size: 0.78rem;
 
   .plus {
