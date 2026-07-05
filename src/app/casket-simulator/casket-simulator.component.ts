@@ -5,7 +5,7 @@ import { CasketCardComponent } from './casket-card/casket-card.component';
 import { LootCardComponent } from './loot-card/loot-card.component';
 import { ClueScrollHelper, Item } from 'osrs-tools';
 import { LootItem, OpeningRecord } from './casket-simulator.models';
-import { CLUE_ITEM_ID_OVERRIDES } from './clue-item-id-overrides';
+import { WikiItemImages } from '../constants/wiki-item-images.constant';
 
 @Component({
   selector: 'app-casket-simulator',
@@ -122,31 +122,11 @@ export class CasketSimulatorComponent implements OnInit {
   public getCasketImage(
     casketType: 'beginner' | 'easy' | 'medium' | 'hard' | 'elite' | 'master',
   ): string {
-
-    /**
-     * Reward casket (beginner)	23245
-     * Reward casket (easy)	20546
-     * Reward casket (elite)	20543
-     * Reward casket (hard)	20544
-     * Reward casket (master)	19836
-     * Reward casket (medium)	20545
-     */
-
-    const map = {
-      'beginner': '23245',
-      'easy': '20546',
-      'medium': '20545',
-      'hard': '20544',
-      'elite': '20543',
-      'master': '19836'
-    };
-
-    return `assets/items/${map[casketType]}.png`;
+    return WikiItemImages.REWARD_CASKETS[casketType];
   }
 
   public getItemImage(lootItem: Item): string {
-    const filename = CLUE_ITEM_ID_OVERRIDES[lootItem.name.toLowerCase()] ?? lootItem.id;
-    return `assets/items/${filename}.png`;
+    return WikiItemImages.getClueItemImage(lootItem.name) ?? '';
   }
 
   public switchTab(tab: 'openings' | 'total'): void {

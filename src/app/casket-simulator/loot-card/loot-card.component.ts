@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LootItem } from '../casket-simulator.models';
-import { CLUE_ITEM_ID_OVERRIDES } from '../clue-item-id-overrides';
+import { WikiItemImages } from '../../constants/wiki-item-images.constant';
 
 @Component({
   selector: 'app-loot-card',
@@ -13,7 +13,6 @@ export class LootCardComponent {
   @Input() lootItem!: LootItem;
 
   public getItemImage(item: LootItem): string {
-    const filename = CLUE_ITEM_ID_OVERRIDES[item.item.name.toLowerCase()] ?? item.item.id;
-    return `assets/items/${filename}.png`;
+    return WikiItemImages.getClueItemImage(item.item.name) ?? '';
   }
 }

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OpeningRecord } from '../casket-simulator.models';
+import { WikiItemImages } from '../../constants/wiki-item-images.constant';
 
 @Component({
   selector: 'app-casket-card',
@@ -14,12 +15,11 @@ export class CasketCardComponent {
   public getCasketImage(
     casketType: OpeningRecord['casketType'],
   ): string {
-    return `assets/items/reward-casket-${casketType.toLowerCase()}.png`;
+    return WikiItemImages.REWARD_CASKETS[casketType];
   }
 
   public getItemImage(itemName: string): string {
-    const filename = itemName.toLowerCase().replace(/ /g, '-');
-    return `assets/items/${filename}.png`;
+    return WikiItemImages.getClueItemImage(itemName) ?? '';
   }
 
   public getItemQuantity(quantity?: number): number {

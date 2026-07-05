@@ -197,7 +197,11 @@ img {
 
 .tier-tab.active {
   border-color: var(--tier-color, var(--osrs-gold-light));
-  background: color-mix(in srgb, var(--tier-color, var(--osrs-gold-light)) 18%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--tier-color, var(--osrs-gold-light)) 18%,
+    transparent
+  );
   color: var(--osrs-text-primary);
 }
 
@@ -260,7 +264,7 @@ img {
   background: rgba(75, 122, 61, 0.14);
 }
 
-.task-list-item input[type='checkbox'] {
+.task-list-item input[type="checkbox"] {
   width: 18px;
   height: 18px;
   margin-top: 0.15rem;
@@ -479,7 +483,11 @@ img {
 
 .reward-tier-item.unlocked {
   border-color: var(--tier-color, var(--osrs-gold-light));
-  background: color-mix(in srgb, var(--tier-color, var(--osrs-gold-light)) 10%, rgba(28, 21, 16, 0.8));
+  background: color-mix(
+    in srgb,
+    var(--tier-color, var(--osrs-gold-light)) 10%,
+    rgba(28, 21, 16, 0.8)
+  );
   opacity: 1;
 }
 

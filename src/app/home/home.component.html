@@ -13,7 +13,7 @@
       </p>
       <div class="hero-actions" aria-label="Primary simulators">
         <a routerLink="/casket-simulator" class="btn btn-primary btn-lg d-inline-flex align-items-center gap-2 primary-action">
-          <img src="assets/items/reward-casket-master.png" alt="" />
+          <img [src]="WikiItemImages.REWARD_CASKET_MASTER" alt="" />
           Open caskets
         </a>
         <a routerLink="/quest-simulator" class="btn btn-outline-light btn-lg d-inline-flex align-items-center gap-2 secondary-action">
@@ -25,22 +25,22 @@
 
     <div class="hero-inventory" aria-label="Featured rewards">
       <div class="inventory-slot featured">
-        <img src="assets/runescape/items/20014.png" alt="3rd age pickaxe" />
+        <img [src]="WikiItemImages.THIRD_AGE_PICKAXE" alt="3rd age pickaxe" />
       </div>
       <div class="inventory-slot">
-        <img src="assets/items/4129.png" alt="Ranger boots" />
+        <img [src]="WikiItemImages.RANGER_BOOTS" alt="Ranger boots" />
       </div>
       <div class="inventory-slot">
-        <img src="assets/items/robin-hood-hat.png" alt="Robin hood hat" />
+        <img [src]="WikiItemImages.ROBIN_HOOD_HAT" alt="Robin hood hat" />
       </div>
       <div class="inventory-slot">
-        <img src="assets/items/gilded-platebody.png" alt="Gilded platebody" />
+        <img [src]="WikiItemImages.GILDED_PLATEBODY" alt="Gilded platebody" />
       </div>
       <div class="inventory-slot">
-        <img src="assets/items/dragon-boots.png" alt="Dragon boots" />
+        <img [src]="WikiItemImages.DRAGON_BOOTS" alt="Dragon boots" />
       </div>
       <div class="inventory-slot">
-        <img src="assets/items/clue-scroll-master.png" alt="Master clue scroll" />
+        <img [src]="WikiItemImages.CLUE_SCROLL_MASTER" alt="Master clue scroll" />
       </div>
     </div>
   </section>
@@ -48,7 +48,7 @@
   <section class="simulators-grid" aria-label="Available tools">
     <a routerLink="/casket-simulator" class="simulator-card">
       <span class="card-icon">
-        <img src="assets/items/reward-casket-hard.png" alt="" />
+        <img [src]="WikiItemImages.REWARD_CASKET_HARD" alt="" />
       </span>
       <span class="card-kicker">Clue Scrolls</span>
       <h2>Casket Simulator</h2>
