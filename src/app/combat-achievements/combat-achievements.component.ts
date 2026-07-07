@@ -11,12 +11,13 @@ import {
   COMBAT_ACHIEVEMENT_REWARD_TIERS,
   COMBAT_ACHIEVEMENT_TIER_POINTS,
 } from 'osrs-tools/combat-achievements';
+import { RewardTierListComponent } from './reward-tier-list/reward-tier-list.component';
 
 type TierFilter = 'All' | CombatAchievementTier;
 
 @Component({
   selector: 'app-combat-achievements',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RewardTierListComponent],
   templateUrl: './combat-achievements.component.html',
   styleUrl: './combat-achievements.component.scss',
 })
@@ -151,23 +152,8 @@ export class CombatAchievementsComponent implements OnInit {
     return Math.round((tierProgress.pointsEarned / tierProgress.pointsAvailable) * 100);
   }
 
-  isRewardTierUnlocked(rewardTier: CombatAchievementRewardTier): boolean {
-    return this.progress.totalPoints >= rewardTier.pointsRequired;
-  }
-
-  pointsUntilNextTier(): number {
-    if (!this.progress.nextRewardTier) {
-      return 0;
-    }
-    return this.progress.nextRewardTier.pointsRequired - this.progress.totalPoints;
-  }
-
   trackByTaskId(_index: number, task: CombatAchievementTask): number {
     return task.id;
-  }
-
-  trackByRewardTier(_index: number, rewardTier: CombatAchievementRewardTier): string {
-    return rewardTier.tier;
   }
 
   tierClass(tier: CombatAchievementTier | string): string {

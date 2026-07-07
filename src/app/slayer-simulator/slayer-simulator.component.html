@@ -75,30 +75,14 @@
     </div>
 
     <!-- Session Stats -->
-    <div class="session-stats" *ngIf="selectedMaster">
-      <h2>Session Stats</h2>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <span class="stat-label">Master</span>
-          <span class="stat-value">{{ selectedMaster.name }}</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-label">Assignments</span>
-          <span class="stat-value">{{ assignmentCount }}</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-label">Monsters Slain</span>
-          <span class="stat-value">{{ totalKills }}</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-label">Slayer Points</span>
-          <span class="stat-value points">{{ pointsEarned }}</span>
-        </div>
-      </div>
-      <button (click)="resetSession()" class="btn btn-secondary w-100">
-        Reset Session
-      </button>
-    </div>
+    <app-slayer-session-stats
+      *ngIf="selectedMaster"
+      [masterName]="selectedMaster.name"
+      [assignmentCount]="assignmentCount"
+      [totalKills]="totalKills"
+      [pointsEarned]="pointsEarned"
+      (reset)="resetSession()"
+    ></app-slayer-session-stats>
 
     <!-- Task History -->
     <div class="task-history" *ngIf="taskHistory.length > 0">

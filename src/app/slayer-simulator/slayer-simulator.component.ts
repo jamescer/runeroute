@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { getAllMasters, Assignment } from 'osrs-tools';
+import { SessionStatsComponent } from './session-stats/session-stats.component';
 
 @Component({
   selector: 'app-slayer-simulator',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SessionStatsComponent],
   templateUrl: './slayer-simulator.component.html',
   styleUrl: './slayer-simulator.component.scss',
 })

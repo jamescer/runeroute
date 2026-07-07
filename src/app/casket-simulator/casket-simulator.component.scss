@@ -1,107 +1,16 @@
+@use "../../styles/variables" as v;
+
 :host {
   display: block;
-}
-
-.casket-simulator {
-  max-width: 1440px;
-  margin: auto;
-  padding: 1rem;
-  color: var(--osrs-text-primary);
-}
-
-.simulator-header,
-.stats-strip,
-.controls-panel,
-.results-panel {
-  border: 1px solid rgba(194, 154, 89, 0.28);
-  border-radius: 8px;
-  background: rgba(21, 16, 12, 0.84);
-  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
-}
-
-.simulator-header {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.25rem;
-  align-items: center;
-  padding: 1.5rem;
-  background: var(--osrs-panel-soft);
-}
-
-h1,
-h2,
-p {
-  margin: 0;
-}
-
-h1 {
-  color: var(--osrs-gold-light);
-  font-size: clamp(1.75rem, 3vw, 2.75rem);
-  line-height: 1.05;
 }
 
 h2 {
   font-size: 1.15rem;
 }
 
-.subtitle {
-  max-width: 760px;
-  margin-top: 0.65rem;
-  color: var(--osrs-text-secondary);
-  line-height: 1.55;
-}
-
-.eyebrow,
-.stat-label,
-.section-label {
-  display: block;
-  margin-bottom: 0.45rem;
-  color: #8fc9b0;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-
-.stat-label,
-.section-label {
-  color: var(--osrs-text-secondary);
-}
-
-.header-casket {
-  display: grid;
-  place-items: center;
-  width: 96px;
-  aspect-ratio: 1;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-img {
-  object-fit: contain;
-  image-rendering: pixelated;
-}
-
 .header-casket img {
   width: 64px;
   height: 64px;
-}
-
-.stats-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  margin: 1rem 0;
-  overflow: hidden;
-}
-
-.stat-tile {
-  padding: 1rem;
-  background: rgba(47, 35, 25, 0.74);
-}
-
-.stat-value {
-  color: var(--osrs-gold-light);
-  font-size: 1.65rem;
 }
 
 .simulator-layout {
@@ -245,7 +154,7 @@ button:not(.btn):hover,
   background: rgba(0, 0, 0, 0.22);
 }
 
-.tab-content {
+.results-tab-content {
   flex: 1;
   padding: 1rem;
   overflow: auto;
@@ -262,23 +171,7 @@ button:not(.btn):hover,
 }
 
 .empty-state {
-  display: grid;
   min-height: 380px;
-  place-items: center;
-  align-content: center;
-  gap: 0.45rem;
-  color: var(--osrs-text-secondary);
-  text-align: center;
-}
-
-.empty-state img {
-  width: 58px;
-  height: 58px;
-}
-
-.empty-state p {
-  color: var(--osrs-text-primary);
-  font-weight: 800;
 }
 
 @media (max-width: 1100px) {

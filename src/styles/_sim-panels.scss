@@ -1,0 +1,272 @@
+// Shared boilerplate for the "browser + details panel" simulator layout
+// reused by achievement-diaries, combat-achievements, quest-simulator and
+// casket-simulator. Kept global so it isn't duplicated into every
+// component's compiled stylesheet (see angular.json anyComponentStyle budget).
+@use "variables" as v;
+
+.ca-page,
+.diaries-page,
+.quest-simulator,
+.casket-simulator {
+  max-width: 1440px;
+  margin: auto;
+  padding: v.$space-md;
+  color: var(--osrs-text-primary);
+}
+
+.page-header,
+.simulator-header,
+.stats-strip,
+.task-browser,
+.progress-panel,
+.diary-browser,
+.diary-details-panel,
+.quest-browser,
+.quest-details-panel,
+.controls-panel,
+.results-panel,
+.progress-checker {
+  border: 1px solid v.$border-strong;
+  border-radius: v.$radius-lg;
+  background: v.$surface-panel;
+  box-shadow: v.$shadow-panel;
+}
+
+.page-header,
+.simulator-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.25rem;
+  align-items: center;
+  padding: v.$space-lg;
+  background: var(--osrs-panel-soft);
+}
+
+h1 {
+  color: var(--osrs-gold-light);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  line-height: 1.05;
+}
+
+h2 {
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+img {
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.subtitle,
+.description {
+  max-width: 760px;
+  margin-top: 0.65rem;
+  color: var(--osrs-text-secondary);
+  line-height: 1.55;
+}
+
+.eyebrow,
+.stat-label,
+.search-label,
+.section-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: v.$accent-mint;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.stat-label,
+.search-label,
+.section-label {
+  color: var(--osrs-text-secondary);
+}
+
+.header-icon,
+.header-casket {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.header-icon img {
+  width: 58px;
+  height: 58px;
+}
+
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin: v.$space-md 0;
+  overflow: hidden;
+}
+
+.stat-tile {
+  padding: v.$space-md;
+  background: rgba(47, 35, 25, 0.74);
+}
+
+.stat-value {
+  display: block;
+  color: var(--osrs-gold-light);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.panel-heading,
+.details-hero,
+.section-heading {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: v.$space-md;
+  align-items: start;
+}
+
+.panel-heading {
+  padding: v.$space-md;
+  border-bottom: 1px solid v.$border-medium;
+}
+
+.result-pill,
+.section-heading span {
+  min-width: 2.1rem;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid rgba(143, 201, 176, 0.28);
+  border-radius: v.$radius-pill;
+  color: v.$accent-mint;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.search-box,
+.monster-filter {
+  display: block;
+  padding: v.$space-md;
+  border-bottom: 1px solid v.$border-medium;
+}
+
+.search-box input,
+.monster-filter select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 0.85rem;
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.45rem;
+  color: var(--osrs-text-secondary);
+  text-align: center;
+}
+
+.empty-state img {
+  width: 58px;
+  height: 58px;
+}
+
+.empty-state p {
+  color: var(--osrs-text-primary);
+  font-weight: 800;
+}
+
+.details-hero {
+  padding: 1.25rem;
+  border: 1px solid v.$border-medium;
+  border-radius: v.$radius-lg;
+  background: rgba(47, 35, 25, 0.58);
+}
+
+.details-hero h2 {
+  color: var(--osrs-gold-light);
+  font-size: clamp(1.45rem, 2.4vw, 2.25rem);
+}
+
+// Subtle translucent "card" surface reused for list items and detail panels
+.task-list-item,
+.diary-list-item,
+.quest-item,
+.detail-section,
+.summary-tile,
+.meta-card {
+  padding: 1rem;
+  border: 1px solid v.$border-subtle;
+  border-radius: v.$radius-lg;
+  background: v.$surface-card;
+}
+
+.task-list-item:hover,
+.diary-list-item:hover,
+.diary-list-item.active,
+.level-tab:hover,
+.level-tab.active,
+.quest-item:hover,
+.quest-item.active {
+  border-color: var(--osrs-gold-light);
+}
+
+.diary-list-item.active,
+.level-tab.active,
+.quest-item.active {
+  background: rgba(226, 196, 120, 0.14);
+}
+
+.section-heading {
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(194, 154, 89, 0.14);
+}
+
+// Dark numbered/tile rows reused by task/step/reward-tier lists
+.task-list li,
+.steps-list li,
+.tier-progress-card,
+.reward-tier-item {
+  border-radius: v.$radius-lg;
+  background: v.$surface-tile;
+}
+
+.task-browser,
+.diary-browser,
+.quest-browser {
+  display: flex;
+  min-height: 700px;
+  max-height: calc(100vh - 220px);
+  flex-direction: column;
+}
+
+.task-browser,
+.progress-panel,
+.diary-browser,
+.diary-details-panel,
+.quest-browser,
+.quest-details-panel {
+  overflow: hidden;
+}
+
+.progress-panel,
+.diary-details-panel,
+.quest-details-panel {
+  min-height: 700px;
+  background: rgba(18, 14, 11, 0.9);
+}
+
+.progress-details,
+.diary-details,
+.quest-details {
+  display: grid;
+  gap: v.$space-md;
+  padding: v.$space-md;
+}

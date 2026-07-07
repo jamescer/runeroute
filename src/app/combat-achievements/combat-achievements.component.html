@@ -167,32 +167,7 @@
           </div>
         </section>
 
-        <section class="detail-section" aria-labelledby="reward-tiers-title">
-          <div class="section-heading">
-            <h3 id="reward-tiers-title">Reward tiers</h3>
-            <span *ngIf="progress.nextRewardTier">
-              {{ pointsUntilNextTier() }} to next
-            </span>
-          </div>
-
-          <ol class="reward-tier-list">
-            <li
-              *ngFor="let rewardTier of rewardTiers; trackBy: trackByRewardTier"
-              class="reward-tier-item"
-              [ngClass]="tierClass(rewardTier.tier)"
-              [class.unlocked]="isRewardTierUnlocked(rewardTier)"
-            >
-              <div class="reward-tier-heading">
-                <span class="tier-badge" [ngClass]="tierClass(rewardTier.tier)">{{ rewardTier.tier }}</span>
-                <strong>{{ rewardTier.pointsRequired }} points</strong>
-                <span class="reward-status">{{ isRewardTierUnlocked(rewardTier) ? 'Unlocked' : 'Locked' }}</span>
-              </div>
-              <ul class="reward-list">
-                <li *ngFor="let reward of rewardTier.rewards">{{ reward }}</li>
-              </ul>
-            </li>
-          </ol>
-        </section>
+        <app-reward-tier-list [rewardTiers]="rewardTiers" [progress]="progress"></app-reward-tier-list>
       </article>
     </main>
   </div>

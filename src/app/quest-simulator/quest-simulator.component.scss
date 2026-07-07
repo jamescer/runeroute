@@ -1,115 +1,14 @@
+@use "../../styles/variables" as v;
+
 :host {
   display: block;
 }
 
-.quest-simulator {
-  max-width: 1440px;
-  margin: auto;
-  padding: 1rem;
-  color: var(--osrs-text-primary);
-}
-
-.simulator-header,
-.stats-strip,
-.quest-browser,
-.quest-details-panel {
-  border: 1px solid rgba(194, 154, 89, 0.28);
-  border-radius: 8px;
-  background: rgba(21, 16, 12, 0.84);
-  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
-}
-
-.simulator-header {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.25rem;
-  align-items: center;
-  padding: 1.5rem;
-  background: var(--osrs-panel-soft);
-}
-
-h1,
-h2,
-h3,
-p {
-  margin: 0;
-}
-
-h1 {
-  color: var(--osrs-gold-light);
-  font-size: clamp(1.75rem, 3vw, 2.75rem);
-  line-height: 1.05;
-}
-
-h2 {
-  font-size: 1.2rem;
-  line-height: 1.2;
-}
-
-h3 {
-  font-size: 1rem;
-}
-
-img {
-  object-fit: contain;
-  image-rendering: pixelated;
-}
-
-.subtitle {
-  max-width: 760px;
-  margin-top: 0.65rem;
+.description {
+  max-width: 900px;
+  margin-top: 0.75rem;
   color: var(--osrs-text-secondary);
-  line-height: 1.55;
-}
-
-.eyebrow,
-.stat-label,
-.search-label {
-  display: block;
-  margin-bottom: 0.45rem;
-  color: #8fc9b0;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-
-.stat-label,
-.search-label {
-  color: var(--osrs-text-secondary);
-}
-
-.header-icon {
-  display: grid;
-  place-items: center;
-  width: 96px;
-  aspect-ratio: 1;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.header-icon img {
-  width: 58px;
-  height: 58px;
-}
-
-.stats-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  margin: 1rem 0;
-  overflow: hidden;
-}
-
-.stat-tile {
-  padding: 1rem;
-  background: rgba(47, 35, 25, 0.74);
-}
-
-.stat-value {
-  display: block;
-  color: var(--osrs-gold-light);
-  font-size: 1.65rem;
-  line-height: 1;
+  line-height: 1.6;
 }
 
 .quest-layout {
@@ -117,56 +16,6 @@ img {
   grid-template-columns: minmax(300px, 380px) 1fr;
   gap: 1rem;
   align-items: start;
-}
-
-.quest-browser,
-.quest-details-panel {
-  overflow: hidden;
-}
-
-.quest-browser {
-  display: flex;
-  min-height: 700px;
-  max-height: calc(100vh - 220px);
-  flex-direction: column;
-}
-
-.panel-heading,
-.section-heading,
-.details-hero {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1rem;
-  align-items: start;
-}
-
-.panel-heading {
-  padding: 1rem;
-  border-bottom: 1px solid rgba(194, 154, 89, 0.18);
-}
-
-.result-pill,
-.section-heading span {
-  min-width: 2.1rem;
-  padding: 0.18rem 0.55rem;
-  border: 1px solid rgba(143, 201, 176, 0.28);
-  border-radius: 999px;
-  color: #8fc9b0;
-  font-size: 0.82rem;
-  font-weight: 800;
-  text-align: center;
-}
-
-.search-box {
-  display: block;
-  padding: 1rem;
-  border-bottom: 1px solid rgba(194, 154, 89, 0.18);
-}
-
-.search-box input {
-  width: 100%;
-  min-height: 44px;
-  padding: 0.7rem 0.85rem;
 }
 
 .quest-list {
@@ -184,9 +33,9 @@ img {
   align-items: center;
   min-height: 58px;
   padding: 0.75rem;
-  border: 1px solid rgba(194, 154, 89, 0.16);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid v.$border-subtle;
+  border-radius: v.$radius-lg;
+  background: v.$surface-card;
   color: var(--osrs-text-primary);
   font: inherit;
   text-align: left;
@@ -232,36 +81,6 @@ img {
   font-weight: 800;
 }
 
-.quest-details-panel {
-  min-height: 700px;
-  background: rgba(18, 14, 11, 0.9);
-}
-
-.quest-details {
-  display: grid;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.details-hero {
-  padding: 1.25rem;
-  border: 1px solid rgba(194, 154, 89, 0.18);
-  border-radius: 8px;
-  background: rgba(47, 35, 25, 0.58);
-}
-
-.details-hero h2 {
-  color: var(--osrs-gold-light);
-  font-size: clamp(1.45rem, 2.4vw, 2.25rem);
-}
-
-.description {
-  max-width: 900px;
-  margin-top: 0.75rem;
-  color: var(--osrs-text-secondary);
-  line-height: 1.6;
-}
-
 .detail-summary {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -270,9 +89,6 @@ img {
 
 .summary-tile {
   padding: 0.85rem;
-  border: 1px solid rgba(194, 154, 89, 0.16);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.045);
 }
 
 .summary-tile span {
@@ -362,8 +178,6 @@ img {
   gap: 0.85rem;
   align-items: start;
   padding: 0.75rem;
-  border-radius: 8px;
-  background: rgba(28, 21, 16, 0.8);
 }
 
 .step-number {
@@ -398,28 +212,12 @@ img {
 }
 
 .empty-state {
-  display: grid;
   min-height: 520px;
-  place-items: center;
-  align-content: center;
-  gap: 0.45rem;
   padding: 2rem;
-  color: var(--osrs-text-secondary);
-  text-align: center;
 }
 
 .empty-state.compact {
   min-height: 260px;
-}
-
-.empty-state img {
-  width: 58px;
-  height: 58px;
-}
-
-.empty-state p {
-  color: var(--osrs-text-primary);
-  font-weight: 800;
 }
 
 @media (max-width: 1100px) {

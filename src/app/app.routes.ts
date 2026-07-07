@@ -1,52 +1,52 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { CasketSimulatorComponent } from './casket-simulator/casket-simulator.component';
-import { SlayerSimulatorComponent } from './slayer-simulator/slayer-simulator.component';
-import { QuestSimulatorComponent } from './quest-simulator/quest-simulator.component';
-import { AchievementDiariesComponent } from './achievement-diaries/achievement-diaries.component';
-import { CombatAchievementsComponent } from './combat-achievements/combat-achievements.component';
-import { HunterGuildComponent } from './hunter-guild/hunter-guild.component';
-import { LeagueBuilderComponent } from './league-builder/league-builder.component';
-
 
 export const routes: Routes = [
   {
     path: 'home',
-    loadComponent: () => HomeComponent,
+    loadComponent: () => import('./home/home.component').then((m) => m.HomeComponent),
   },
-
   {
     path: 'about',
-    loadComponent: () => AboutComponent,
+    loadComponent: () => import('./about/about.component').then((m) => m.AboutComponent),
   },
   {
     path: 'slayer-simulator',
-    loadComponent: () => SlayerSimulatorComponent,
+    loadComponent: () =>
+      import('./slayer-simulator/slayer-simulator.component').then((m) => m.SlayerSimulatorComponent),
   },
   {
     path: 'casket-simulator',
-    loadComponent: () => CasketSimulatorComponent,
+    loadComponent: () =>
+      import('./casket-simulator/casket-simulator.component').then((m) => m.CasketSimulatorComponent),
   },
   {
     path: 'league-builder',
-    loadComponent: () => LeagueBuilderComponent,
+    loadComponent: () =>
+      import('./league-builder/league-builder.component').then((m) => m.LeagueBuilderComponent),
   },
   {
     path: 'quest-simulator',
-    loadComponent: () => QuestSimulatorComponent,
+    loadComponent: () =>
+      import('./quest-simulator/quest-simulator.component').then((m) => m.QuestSimulatorComponent),
   },
   {
     path: 'achievement-diaries',
-    loadComponent: () => AchievementDiariesComponent,
+    loadComponent: () =>
+      import('./achievement-diaries/achievement-diaries.component').then(
+        (m) => m.AchievementDiariesComponent,
+      ),
   },
   {
     path: 'combat-achievements',
-    loadComponent: () => CombatAchievementsComponent,
+    loadComponent: () =>
+      import('./combat-achievements/combat-achievements.component').then(
+        (m) => m.CombatAchievementsComponent,
+      ),
   },
   {
     path: 'hunter-guild',
-    loadComponent: () => HunterGuildComponent,
+    loadComponent: () =>
+      import('./hunter-guild/hunter-guild.component').then((m) => m.HunterGuildComponent),
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },

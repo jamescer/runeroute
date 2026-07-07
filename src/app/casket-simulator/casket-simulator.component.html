@@ -143,8 +143,8 @@
         </div>
       </div>
 
-      <div class="tab-content">
-        <div *ngIf="activeTab === 'openings'" class="tab-pane openings-pane">
+      <div class="results-tab-content">
+        <div *ngIf="activeTab === 'openings'" class="results-tab-pane openings-pane">
           <div
             *ngIf="openingHistory.length > 0; else noOpenings"
             class="openings-list"
@@ -163,7 +163,7 @@
           </ng-template>
         </div>
 
-        <div *ngIf="activeTab === 'total'" class="tab-pane total-pane">
+        <div *ngIf="activeTab === 'total'" class="results-tab-pane total-pane">
           <div
             *ngIf="totalLoot.length > 0; else noLoot"
             class="total-loot-grid"

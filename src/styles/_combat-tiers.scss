@@ -1,0 +1,38 @@
+// Combat Achievement tier badge + colors, shared between
+// combat-achievements.component and its reward-tier-list child component.
+.tier-badge {
+  display: inline-block;
+  padding: 0.14rem 0.5rem;
+  border: 1px solid var(--tier-color, var(--osrs-gold-light));
+  border-radius: 999px;
+  color: var(--tier-color, var(--osrs-gold-light));
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tier-easy {
+  --tier-color: #9fd6b4;
+}
+
+.tier-medium {
+  --tier-color: #6fbf73;
+}
+
+.tier-hard {
+  --tier-color: #5b9bd5;
+}
+
+.tier-elite {
+  --tier-color: #a76bd9;
+}
+
+.tier-master {
+  --tier-color: #d9534f;
+}
+
+.tier-grandmaster {
+  --tier-color: #e2c478;
+}

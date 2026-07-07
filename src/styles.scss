@@ -1,3 +1,7 @@
+@use "styles/sim-panels";
+@use "styles/legacy-panels";
+@use "styles/combat-tiers";
+
 :root {
   --osrs-gold: #8b6a3f;
   --osrs-gold-light: #c2a877;

@@ -41,50 +41,7 @@
     </div>
   </section>
 
-  <section class="progress-checker">
-    <button
-      type="button"
-      class="progress-checker-toggle"
-      (click)="toggleProgressChecker(!progressCheckerOpen)"
-      [attr.aria-expanded]="progressCheckerOpen"
-    >
-      <span>Check your progress</span>
-      <span class="summary-hint">Enter your stats to see which diary tasks you can complete today</span>
-      <span class="chevron" [class.open]="progressCheckerOpen" aria-hidden="true"></span>
-    </button>
-
-    <div class="progress-checker-body" *ngIf="progressCheckerOpen">
-      <div class="qp-field">
-        <label for="quest-points">Quest Points</label>
-        <input
-          id="quest-points"
-          type="number"
-          min="0"
-          max="300"
-          [(ngModel)]="questPoints"
-          (ngModelChange)="refreshAccount()"
-        />
-
-        <div class="combat-readout" *ngIf="account">
-          Combat Level: <strong>{{ account.combatLevel }}</strong>
-        </div>
-      </div>
-
-      <div class="skill-grid">
-        <label class="skill-field" *ngFor="let skill of skillList">
-          <img [src]="getSkillIconPath(skill)" [alt]="skill" />
-          <span [title]="skill">{{ skill }}</span>
-          <input
-            type="number"
-            min="1"
-            max="99"
-            [(ngModel)]="skillLevels[skill]"
-            (ngModelChange)="refreshAccount()"
-          />
-        </label>
-      </div>
-    </div>
-  </section>
+  <app-diary-progress-checker (accountChange)="account = $event"></app-diary-progress-checker>
 
   <div class="diaries-layout">
     <aside class="diary-browser" aria-labelledby="diary-browser-title">

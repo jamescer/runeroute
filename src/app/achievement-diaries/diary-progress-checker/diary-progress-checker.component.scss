@@ -1,0 +1,112 @@
+@use "../../../styles/variables" as v;
+
+.progress-checker {
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.progress-checker-toggle {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: var(--osrs-panel-soft);
+  color: var(--osrs-text-primary);
+  font: inherit;
+  text-align: left;
+}
+
+.progress-checker-toggle span:first-child {
+  color: var(--osrs-gold-light);
+  font-weight: 800;
+}
+
+.summary-hint {
+  color: var(--osrs-text-secondary);
+  font-size: 0.85rem;
+}
+
+.chevron {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--osrs-gold-light);
+  border-bottom: 2px solid var(--osrs-gold-light);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.chevron.open {
+  transform: rotate(225deg);
+}
+
+.progress-checker-body {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border-top: 1px solid v.$border-medium;
+}
+
+.qp-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.qp-field label {
+  color: var(--osrs-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.qp-field input {
+  width: 120px;
+}
+
+.combat-readout {
+  color: var(--osrs-text-secondary);
+  font-size: 0.9rem;
+}
+
+.combat-readout strong {
+  color: var(--osrs-gold-light);
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0.6rem;
+}
+
+.skill-field {
+  display: grid;
+  grid-template-columns: 20px 1fr 50px;
+  gap: 0.45rem;
+  align-items: center;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid v.$border-subtle;
+  border-radius: v.$radius-md;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.skill-field img {
+  width: 20px;
+  height: 20px;
+}
+
+.skill-field span {
+  overflow: hidden;
+  color: var(--osrs-text-secondary);
+  font-size: 0.78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skill-field input {
+  width: 100%;
+  min-height: 0;
+  padding: 0.3rem;
+  text-align: center;
+}

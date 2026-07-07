@@ -1,0 +1,30 @@
+// Shared "chunky gold-bordered panel" boilerplate used by the slayer
+// simulator's section panels. Kept global for the same reason as
+// sim-panels: avoid duplicating identical rules into every component's
+// compiled stylesheet (see angular.json anyComponentStyle budget).
+@use "variables" as v;
+
+.masters-section,
+.task-area,
+.session-stats,
+.task-history,
+.guild-header {
+  background: rgba(22, 16, 11, 0.92);
+  border: 2px solid var(--osrs-gold);
+  border-radius: v.$radius-sm;
+  padding: v.$space-xl;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
+}
+
+.master-card,
+.task-card,
+.stat-card {
+  border: 2px solid var(--osrs-gold);
+}
+
+.master-card,
+.task-card,
+.stat-card,
+.history-item {
+  border-radius: v.$radius-sm;
+}

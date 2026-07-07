@@ -1,231 +1,11 @@
+@use "../../styles/variables" as v;
+
 :host {
   display: block;
 }
 
-.diaries-page {
-  max-width: 1440px;
-  margin: auto;
-  padding: 1rem;
-  color: var(--osrs-text-primary);
-}
-
-.page-header,
-.stats-strip,
-.diary-browser,
-.diary-details-panel {
-  border: 1px solid rgba(194, 154, 89, 0.28);
-  border-radius: 8px;
-  background: rgba(21, 16, 12, 0.84);
-  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
-}
-
-.page-header {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.25rem;
-  align-items: center;
-  padding: 1.5rem;
-  background: var(--osrs-panel-soft);
-}
-
-h1,
-h2,
-h3,
-p {
-  margin: 0;
-}
-
-h1 {
-  color: var(--osrs-gold-light);
-  font-size: clamp(1.75rem, 3vw, 2.75rem);
-  line-height: 1.05;
-}
-
-h2 {
-  font-size: 1.2rem;
-  line-height: 1.2;
-}
-
-h3 {
-  font-size: 1rem;
-}
-
-img {
-  object-fit: contain;
-  image-rendering: pixelated;
-}
-
-.subtitle,
-.description {
-  max-width: 760px;
-  margin-top: 0.65rem;
-  color: var(--osrs-text-secondary);
-  line-height: 1.55;
-}
-
-.eyebrow,
-.stat-label,
-.search-label {
-  display: block;
-  margin-bottom: 0.45rem;
-  color: #8fc9b0;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-
-.stat-label,
-.search-label {
-  color: var(--osrs-text-secondary);
-}
-
-.header-icon {
-  display: grid;
-  place-items: center;
-  width: 96px;
-  aspect-ratio: 1;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.header-icon img {
-  width: 58px;
-  height: 58px;
-}
-
 .stats-strip {
-  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1px;
-  margin: 1rem 0;
-  overflow: hidden;
-}
-
-.stat-tile {
-  padding: 1rem;
-  background: rgba(47, 35, 25, 0.74);
-}
-
-.stat-value {
-  display: block;
-  color: var(--osrs-gold-light);
-  font-size: 1.65rem;
-  line-height: 1;
-}
-
-.progress-checker {
-  margin: 1rem 0;
-  border: 1px solid rgba(194, 154, 89, 0.28);
-  border-radius: 8px;
-  background: rgba(21, 16, 12, 0.84);
-  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
-  overflow: hidden;
-}
-
-.progress-checker-toggle {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 0.75rem;
-  align-items: center;
-  width: 100%;
-  padding: 1rem 1.25rem;
-  background: var(--osrs-panel-soft);
-  color: var(--osrs-text-primary);
-  font: inherit;
-  text-align: left;
-}
-
-.progress-checker-toggle span:first-child {
-  color: var(--osrs-gold-light);
-  font-weight: 800;
-}
-
-.summary-hint {
-  color: var(--osrs-text-secondary);
-  font-size: 0.85rem;
-}
-
-.chevron {
-  width: 10px;
-  height: 10px;
-  border-right: 2px solid var(--osrs-gold-light);
-  border-bottom: 2px solid var(--osrs-gold-light);
-  transform: rotate(45deg);
-  transition: transform 0.2s ease;
-}
-
-.chevron.open {
-  transform: rotate(225deg);
-}
-
-.progress-checker-body {
-  display: grid;
-  gap: 1.25rem;
-  padding: 1.25rem;
-  border-top: 1px solid rgba(194, 154, 89, 0.18);
-}
-
-.qp-field {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-}
-
-.qp-field label {
-  color: var(--osrs-text-secondary);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
-.qp-field input {
-  width: 120px;
-}
-
-.combat-readout {
-  color: var(--osrs-text-secondary);
-  font-size: 0.9rem;
-}
-
-.combat-readout strong {
-  color: var(--osrs-gold-light);
-}
-
-.skill-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  gap: 0.6rem;
-}
-
-.skill-field {
-  display: grid;
-  grid-template-columns: 20px 1fr 50px;
-  gap: 0.45rem;
-  align-items: center;
-  padding: 0.4rem 0.55rem;
-  border: 1px solid rgba(194, 154, 89, 0.16);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.skill-field img {
-  width: 20px;
-  height: 20px;
-}
-
-.skill-field span {
-  overflow: hidden;
-  color: var(--osrs-text-secondary);
-  font-size: 0.78rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.skill-field input {
-  width: 100%;
-  min-height: 0;
-  padding: 0.3rem;
-  text-align: center;
 }
 
 .diaries-layout {
@@ -233,56 +13,6 @@ img {
   grid-template-columns: minmax(300px, 380px) 1fr;
   gap: 1rem;
   align-items: start;
-}
-
-.diary-browser,
-.diary-details-panel {
-  overflow: hidden;
-}
-
-.diary-browser {
-  display: flex;
-  min-height: 700px;
-  max-height: calc(100vh - 220px);
-  flex-direction: column;
-}
-
-.panel-heading,
-.details-hero,
-.section-heading {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1rem;
-  align-items: start;
-}
-
-.panel-heading {
-  padding: 1rem;
-  border-bottom: 1px solid rgba(194, 154, 89, 0.18);
-}
-
-.result-pill,
-.section-heading span {
-  min-width: 2.1rem;
-  padding: 0.18rem 0.55rem;
-  border: 1px solid rgba(143, 201, 176, 0.28);
-  border-radius: 999px;
-  color: #8fc9b0;
-  font-size: 0.82rem;
-  font-weight: 800;
-  text-align: center;
-}
-
-.search-box {
-  display: block;
-  padding: 1rem;
-  border-bottom: 1px solid rgba(194, 154, 89, 0.18);
-}
-
-.search-box input {
-  width: 100%;
-  min-height: 44px;
-  padding: 0.7rem 0.85rem;
 }
 
 .diary-list {
@@ -300,24 +30,9 @@ img {
   align-items: center;
   min-height: 62px;
   padding: 0.75rem;
-  border: 1px solid rgba(194, 154, 89, 0.16);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.045);
   color: var(--osrs-text-primary);
   font: inherit;
   text-align: left;
-}
-
-.diary-list-item:hover,
-.diary-list-item.active,
-.level-tab:hover,
-.level-tab.active {
-  border-color: var(--osrs-gold-light);
-}
-
-.diary-list-item.active,
-.level-tab.active {
-  background: rgba(226, 196, 120, 0.14);
 }
 
 .diary-icon,
@@ -355,30 +70,10 @@ img {
   font-size: 0.86rem;
 }
 
-.diary-details-panel {
-  min-height: 700px;
-  background: rgba(18, 14, 11, 0.9);
-}
-
-.diary-details {
-  display: grid;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.details-hero {
-  padding: 1.25rem;
-  border: 1px solid rgba(194, 154, 89, 0.18);
-  border-radius: 8px;
-  background: rgba(47, 35, 25, 0.58);
-}
-
 .details-hero h2 {
   display: flex;
   gap: 0.7rem;
   align-items: center;
-  color: var(--osrs-gold-light);
-  font-size: clamp(1.45rem, 2.4vw, 2.25rem);
 }
 
 .level-tabs,
@@ -444,14 +139,6 @@ img {
   grid-template-columns: repeat(4, 1fr);
 }
 
-.summary-tile,
-.meta-card,
-.detail-section {
-  border: 1px solid rgba(194, 154, 89, 0.16);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.045);
-}
-
 .summary-tile {
   padding: 0.85rem;
 }
@@ -467,10 +154,6 @@ img {
   color: var(--osrs-gold-light);
   font-size: 1.45rem;
   line-height: 1.1;
-}
-
-.detail-section {
-  padding: 1rem;
 }
 
 .section-heading {
@@ -534,8 +217,6 @@ img {
   gap: 0.85rem;
   align-items: start;
   padding: 0.75rem;
-  border-radius: 8px;
-  background: rgba(28, 21, 16, 0.8);
 }
 
 .task-number {
@@ -550,28 +231,12 @@ img {
 }
 
 .empty-state {
-  display: grid;
   min-height: 520px;
-  place-items: center;
-  align-content: center;
-  gap: 0.45rem;
   padding: 2rem;
-  color: var(--osrs-text-secondary);
-  text-align: center;
 }
 
 .empty-state.compact {
   min-height: 260px;
-}
-
-.empty-state img {
-  width: 58px;
-  height: 58px;
-}
-
-.empty-state p {
-  color: var(--osrs-text-primary);
-  font-weight: 800;
 }
 
 @media (max-width: 1100px) {
